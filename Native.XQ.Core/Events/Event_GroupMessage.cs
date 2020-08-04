@@ -12,7 +12,7 @@ namespace Native.XQ.Core.Events
     {
         public void GroupMessage(object sender,XQAppGroupMsgEventArgs e)
         {
-            if(e.Content == "测试群消息事件")
+            if(e.Message.Content == "测试群消息事件")
             {
                 e.FromGroup.SendMessage(e.RobotQQ,"测试成功\n-Native.XQ.Net");
 
