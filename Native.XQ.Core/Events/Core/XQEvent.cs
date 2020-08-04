@@ -3,7 +3,9 @@ using System.IO;
 using System.Runtime.InteropServices;
 using Native.XQ.SDK.Enums;
 using Native.XQ.SDK.Event.EventArgs;
+using Native.XQ.SDK.Interfaces;
 using Newtonsoft.Json;
+using Unity;
 
 namespace Native.XQ.Core.Events.Core
 {
@@ -88,10 +90,14 @@ namespace Native.XQ.Core.Events.Core
             //初始化事件容器
             EventContainer.Init();
 
-            if (Event_AppDisableHandler != null)
+            if (EventContainer.unityContainer.IsRegistered<IXQAppEnable>())
             {
-                var args = new EventArgs();
-                Event_AppDisableHandler(typeof(XQEvent), args);
+                if (Event_AppDisableHandler != null)
+                {
+                    var args = new EventArgs();
+                    Event_AppDisableHandler(typeof(XQEvent), args);
+                }
+
             }
 
             return AppInfo();

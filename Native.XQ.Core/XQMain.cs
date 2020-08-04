@@ -28,8 +28,8 @@ namespace Native.XQ.Core
             {
                 name = "ExampleAPP",//请同步更改Core的程序集名为 %name%.XQ
                 pver = "1.0.0",//应用版本
-                author = "",//应用作者
-                desc = "",//插件描述
+                author = "ExampleAuthor",//应用作者
+                desc = "A Example App",//插件描述
                 sver = 1//SDK版本，请勿随意修改
 
             };
@@ -46,6 +46,7 @@ namespace Native.XQ.Core
         {
             //Jie2GG,永远的神
             unityContainer.RegisterType<IXQGroupMessage, Event_GroupMessage>();
+            unityContainer.RegisterType<IXQPrivateMessage, Event_PrivateMessage>();
         }
     }
 

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Runtime.InteropServices;
+using System.Text.RegularExpressions;
 
 namespace Native.XQ.Test
 {
@@ -7,9 +8,14 @@ namespace Native.XQ.Test
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("Hello World!");
-            MsgSender.Api_SendGroupMsg("_me_", "_666666_", "_17674_");
+            Console.WriteLine(SubstringSingle("Heershisb","Heer","sb"));
+           // MsgSender.Api_SendGroupMsg("_me_", "_666666_", "_17674_");
             Console.ReadKey();
+        }
+        public static string SubstringSingle(string source, string startStr, string endStr)
+        {
+            Regex rg = new Regex("(?<=(" + startStr + "))[.\\s\\S]*?(?=(" + endStr + "))", RegexOptions.Multiline | RegexOptions.Singleline);
+            return rg.Match(source).Value;
         }
     }
 

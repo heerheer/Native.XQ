@@ -9,7 +9,7 @@
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>Native.XQ.Core</RootNamespace>
-    <AssemblyName>h测试.XQ</AssemblyName>
+    <AssemblyName>ExampleAPP.XQ</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <Deterministic>true</Deterministic>

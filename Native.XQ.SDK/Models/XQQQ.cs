@@ -31,5 +31,6 @@ namespace Native.XQ.SDK.Models
         {
             XQApi.Native_SendGroupMsg(robotQQ, QQId, msg);
         }
+
     }
 }

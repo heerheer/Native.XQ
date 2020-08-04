@@ -50,9 +50,9 @@ namespace Native.XQ.SDK
         public static extern bool Api_IsEnable();
 
         [DllImport(DllName, EntryPoint = "Api_ShutUP")]
-        public static extern bool Api_ShutUP(string robotQQ,string group,string qq,int seconds);
+        public static extern void Api_ShutUP(string robotQQ,string group,string qq,int seconds);
 
         [DllImport(DllName, EntryPoint = "Api_KickGroupMBR")]
-        public static extern bool Api_KickGroupMBR(string robotQQ, string group, string qq, bool balcklist);
+        public static extern void Api_KickGroupMBR(string robotQQ, string group, string qq, bool balcklist);
     }
 }
