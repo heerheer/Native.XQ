@@ -6,18 +6,18 @@ using System.Threading.Tasks;
 
 namespace Native.XQ.SDK.Models
 {
-    public class XQGroup
+    public class XQQQ
     {
-        public string GroupId { get; set; }
+        public string QQId { get; set; }
 
         /// <summary>
         /// 发送群消息
         /// </summary>
-        /// <param name="robotQQ">收到消息的机器人</param>
+        /// <param name="robotQQ"></param>
         /// <param name="msg"></param>
-        public void SendMessage(string robotQQ,string msg)
+        public void SendMessage(string robotQQ, string msg)
         {
-            XQApi.Native_SendGroupMsg(robotQQ, GroupId, msg);
+            XQApi.Native_SendGroupMsg(robotQQ, QQId, msg);
         }
     }
 }

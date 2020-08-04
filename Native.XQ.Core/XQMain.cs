@@ -9,6 +9,30 @@ using Unity;
 
 namespace Native.XQ.Core
 {
+
+    public class XQAppInfo
+    {
+        public string name { get; set; }
+        public string pver { get; set; }
+        public string author { get; set; }
+        public string desc { get; set; }
+        public int sver { get; set; }
+
+
+        //请在这里改变应用的信息
+        public static XQAppInfo AppInfo()
+        {
+            return new XQAppInfo()
+            {
+                name = "ExampleAPP",
+                pver = "1.0.0",//应用版本
+                author = "",//应用作者
+                desc = "",//插件描述
+                sver = 1//SDK版本，请勿随意修改
+
+            };
+        }
+    }
     public class XQMain
     {
         public static string AppDirectory { get; set; }
@@ -18,4 +42,5 @@ namespace Native.XQ.Core
             unityContainer.RegisterType<IXQGroupMessage, Event_GroupMessage>();
         }
     }
+
 }

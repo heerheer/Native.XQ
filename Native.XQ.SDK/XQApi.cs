@@ -8,26 +8,29 @@ namespace Native.XQ.SDK
         private const string DllName = "xqapi.dll";
         private const string NDllName = "Native.XQ.Lib.XQ.dll";
 
+        /// <summary>
+        /// 发送群消息
+        /// </summary>
+        /// <param name="robot"></param>
+        /// <param name="group"></param>
+        /// <param name="msg"></param>
         [DllImport(NDllName, EntryPoint = "Native_SendGroupMsg")]
         public static extern void Native_SendGroupMsg(string robot, string group, string msg);
 
+        /// <summary>
+        /// 发送私聊消息
+        /// </summary>
+        /// <param name="robot"></param>
+        /// <param name="qq"></param>
+        /// <param name="msg"></param>
         [DllImport(NDllName, EntryPoint = "Native_SendPrivateMsg")]
         public static extern void Native_SendPrivateMsg(string robot, string qq, string msg);
-
-        [DllImport(DllName, EntryPoint = "Api_SendMsg")]
-        public static extern void Api_SendMsg(string rqq, int msgtype, string group, string qq, string msg, int bubbleid = 0);
 
         [DllImport(DllName, EntryPoint = "Api_OutPutLog")]
         public static extern void Api_OutPutLog(string content);
 
         [DllImport(DllName, EntryPoint = "Api_WithdrawMsg")]
         public static extern void Api_WithdrawMsg(string rqq, string group, string index, string id);
-
-        [DllImport(DllName, EntryPoint = "Api_SendMsgEX", CharSet = CharSet.Ansi)]
-        public static extern void Api_SendMsg(string rqq, int msgtype, string group, string qq, IntPtr msg, int bubbleid, bool hide = false);
-
-        [DllImport(DllName, EntryPoint = "Api_SendMsgEX")]
-        public static extern void Api_SendMsgIntPtr(IntPtr rqq, int msgtype, IntPtr group, IntPtr qq, IntPtr msg, int bubbleid, bool hide = false);
 
         [DllImport(DllName, EntryPoint = "Api_IsEnable")]
         public static extern bool Api_IsEnable();

@@ -19,9 +19,10 @@ namespace Native.XQ.Core.Events.Core
 
             XQMain.Register(unityContainer);
 
-            XQApi.Api_OutPutLog($"依赖注入{unityContainer.Registrations.Count()}");
+            XQApi.Api_OutPutLog($"事件依赖注入...{unityContainer.Registrations.Count()}");
 
             XQEvent.Event_GroupMsgHandler += unityContainer.Resolve<IXQGroupMessage>().GroupMessage;
+            XQEvent.Event_GroupMsgHandler += unityContainer.Resolve<IXQPrivateMessage>().PrivateMessage;
         }
 
     }
