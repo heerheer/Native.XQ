@@ -7,6 +7,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Native.XQ.Core", "Native.XQ
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Native.XQ.Test", "Native.XQ.Test\Native.XQ.Test.csproj", "{40E7DD62-FC70-4800-8FAA-083CE42523D5}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Native.XQ.SDK", "Native.XQ.SDK\Native.XQ.SDK.csproj", "{5999838B-1582-4DC9-95C3-72291CE4FC88}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -41,6 +43,18 @@ Global
 		{40E7DD62-FC70-4800-8FAA-083CE42523D5}.Release|x64.Build.0 = Release|Any CPU
 		{40E7DD62-FC70-4800-8FAA-083CE42523D5}.Release|x86.ActiveCfg = Release|Any CPU
 		{40E7DD62-FC70-4800-8FAA-083CE42523D5}.Release|x86.Build.0 = Release|Any CPU
+		{5999838B-1582-4DC9-95C3-72291CE4FC88}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5999838B-1582-4DC9-95C3-72291CE4FC88}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5999838B-1582-4DC9-95C3-72291CE4FC88}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{5999838B-1582-4DC9-95C3-72291CE4FC88}.Debug|x64.Build.0 = Debug|Any CPU
+		{5999838B-1582-4DC9-95C3-72291CE4FC88}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{5999838B-1582-4DC9-95C3-72291CE4FC88}.Debug|x86.Build.0 = Debug|Any CPU
+		{5999838B-1582-4DC9-95C3-72291CE4FC88}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5999838B-1582-4DC9-95C3-72291CE4FC88}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5999838B-1582-4DC9-95C3-72291CE4FC88}.Release|x64.ActiveCfg = Release|Any CPU
+		{5999838B-1582-4DC9-95C3-72291CE4FC88}.Release|x64.Build.0 = Release|Any CPU
+		{5999838B-1582-4DC9-95C3-72291CE4FC88}.Release|x86.ActiveCfg = Release|Any CPU
+		{5999838B-1582-4DC9-95C3-72291CE4FC88}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

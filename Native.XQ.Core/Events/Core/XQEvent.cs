@@ -1,14 +1,20 @@
 ﻿using System;
 using System.IO;
 using System.Runtime.InteropServices;
-using System.Text;
-using Microsoft.SqlServer.Server;
+using Native.XQ.SDK.Enums;
+using Native.XQ.SDK.Event;
+using Native.XQ.SDK.Event.EventArgs;
+using Native.XQ.SDK.Interfaces;
+using Native.XQ.SDK;
+using Unity;
 using Newtonsoft.Json;
 
-namespace Native.XQ.Core
+namespace Native.XQ.Core.Events.Core
 {
     public static class XQEvent
     {
+        public static event EventHandler<XQAppGroupMsgEventArgs> Event_GroupMsgHandler;
+
         static XQEvent()
         {
             //CosturaUtility.Initialize();
@@ -19,42 +25,40 @@ namespace Native.XQ.Core
         [DllExport(ExportName = "XQ_Event", CallingConvention = CallingConvention.StdCall)]
         public static int XQ_Event(string robotQQ, int EventType, int ExtraType, string From, string FromQQ, string targetQQ, string content, string index, string id, string udpmsg, string unix, int p)
         {
-            unsafe
+            XQApi.Api_OutPutLog($"来自:{From}的消息,Type{EventType}被我捉到啦!");
+            if (EventType == (int)XQEventType.Group)
             {
-
-                XQApi.Api_OutPutLog($"来自:{From}的消息,Type{EventType}被我捉到啦!");
-                if (EventType == (int)XQEventType.Group)
+                if (Event_GroupMsgHandler != null)
                 {
-                    //XQApi.Api_SendM sgEX(robotQQ, 2, From, "", Marshal.StringToHGlobalAnsi("test1"), 0, false);
+                    XQAppGroupMsgEventArgs args = new XQAppGroupMsgEventArgs(robotQQ,(int)EventType,(int)ExtraType,From,content);
+                    Event_GroupMsgHandler(typeof(XQEvent), args);
+                }
+                
 
-                    if (From== "894727248" )
+                if (From == "894727248")
+                {
+                    if (content == "测试XQ框架")
                     {
-                        if(content== "测试XQ框架")
-                        {
                         //XQApi.Api_OutPutLog($"恶臭测试");
-                        XQApi.Native_SendGroupMsg(robotQQ,From,"恶臭测试-Native.XQ.Net");
-
-                        }
-                        if (content.StartsWith("复读机"))
-                        {
-                            XQApi.Native_SendGroupMsg(robotQQ, From, $"{content.Substring(3).Trim()}\n-Native.XQ.Net");
-
-                        }
+                        XQApi.Native_SendGroupMsg(robotQQ, From, "恶臭测试-Native.XQ.Net");
+                    }
+                    if (content.StartsWith("复读机"))
+                    {
+                        XQApi.Native_SendGroupMsg(robotQQ, From, $"{content.Substring(3).Trim()}\n-Native.XQ.Net");
                     }
                 }
-                if (EventType == (int)XQEventType.Friend)
-                {
-                    XQApi.Api_OutPutLog($"h测试的状态{XQApi.Api_IsEnable()}");
-                   var botqq = Marshal.StringToHGlobalAnsi(robotQQ);
-                    var group = Marshal.StringToHGlobalAnsi(From);
-                    var target = Marshal.StringToHGlobalAnsi(FromQQ);
-                    var msg = Marshal.StringToHGlobalAnsi("恶臭测试-Native.XQ.Net");
+            }
+            if (EventType == (int)XQEventType.Friend)
+            {
+                XQApi.Api_OutPutLog($"h测试的状态{XQApi.Api_IsEnable()}");
+                var botqq = Marshal.StringToHGlobalAnsi(robotQQ);
+                var group = Marshal.StringToHGlobalAnsi(From);
+                var target = Marshal.StringToHGlobalAnsi(FromQQ);
+                var msg = Marshal.StringToHGlobalAnsi("恶臭测试-Native.XQ.Net");
 
-                    XQApi.Api_SendMsgIntPtr(botqq,1,group,target,msg,0);
+                XQApi.Api_SendMsgIntPtr(botqq, 1, group, target, msg, 0);
 
-                    //XQApi.Api_SendMsg(Marshal.PtrToStringAnsi(robotQQ), EventType,"",Marshal.PtrToStringAnsi(From),Marshal.StringToHGlobalAnsi(strMsg), 0);
-
-                }
+                //XQApi.Api_SendMsg(Marshal.PtrToStringAnsi(robotQQ), EventType,"",Marshal.PtrToStringAnsi(From),Marshal.StringToHGlobalAnsi(strMsg), 0);
             }
             return 1;
         }
@@ -76,10 +80,13 @@ namespace Native.XQ.Core
             {
                 Directory.CreateDirectory(XQMain.AppDirectory);
             }
-            if (File.Exists(XQMain.AppDirectory+"log.ini"))
+            if (File.Exists(XQMain.AppDirectory + "log.ini"))
             {
                 File.WriteAllText(XQMain.AppDirectory + "log.ini", AppInfo(AppName, AppVersion, SDKVersion, AppAuthor, AppDescription));
             }
+
+            EventContainer.Init();
+
             return AppInfo(AppName, AppVersion, SDKVersion, AppAuthor, AppDescription);
         }
 
@@ -99,12 +106,17 @@ namespace Native.XQ.Core
         {
             return JsonConvert.SerializeObject(new XQAppInfo()
             {
-                name=appName,
-               pver=appVersion,
-               author=appAuthor,
-               sver=sdkVersion,
-               desc=appDescription
+                name = appName,
+                pver = appVersion,
+                author = appAuthor,
+                sver = sdkVersion,
+                desc = appDescription
             });
+        }
+
+        public static void Register()
+        {
+            
         }
     }
 
@@ -115,7 +127,5 @@ namespace Native.XQ.Core
         public string author { get; set; }
         public string desc { get; set; }
         public int sver { get; set; }
-
     }
-
 }

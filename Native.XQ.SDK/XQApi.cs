@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Runtime.InteropServices;
 
-namespace Native.XQ.Core
+namespace Native.XQ.SDK
 {
-    internal static class XQApi
+    public static class XQApi
     {
         private const string DllName = "xqapi.dll";
         private const string NDllName = "Native.XQ.Lib.XQ.dll";
