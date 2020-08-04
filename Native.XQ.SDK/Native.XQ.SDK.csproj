@@ -72,6 +72,7 @@
     <Compile Include="Interfaces\IXQPrivateMessage.cs" />
     <Compile Include="Interfaces\IXQGroupMessage.cs" />
     <Compile Include="Models\XQGroup.cs" />
+    <Compile Include="Models\XQMessage.cs" />
     <Compile Include="Models\XQQQ.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="XQApi.cs" />

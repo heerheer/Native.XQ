@@ -13,13 +13,13 @@ namespace Native.XQ.SDK.Event.EventArgs
         {
         }
 
-        public XQAppGroupMsgEventArgs(string robotQQ,int eventtype,int extratype ,string fromGroup, string content)
+        public XQAppGroupMsgEventArgs(string robotQQ,int eventtype,int extratype ,string fromGroup , string msg, string index, string id)
         {
             RobotQQ = robotQQ;
             EventType = eventtype;
             ExtraType = extratype;
             FromGroup = new XQGroup() { GroupId=fromGroup};
-            Content = content;
+            Message = new XQMessage() { Content=msg,MsdId=id,MsgIndex=index};
         }
 
         /// <summary>
@@ -30,7 +30,7 @@ namespace Native.XQ.SDK.Event.EventArgs
         /// <summary>
         /// 消息
         /// </summary>
-        public string Content { get; set; }
+        public XQMessage Message { get; set; }
 
     }
 }

@@ -29,6 +29,13 @@ namespace Native.XQ.SDK
         [DllImport(DllName, EntryPoint = "Api_OutPutLog")]
         public static extern void Api_OutPutLog(string content);
 
+        /// <summary>
+        /// 撤回指定消息
+        /// </summary>
+        /// <param name="rqq"></param>
+        /// <param name="group"></param>
+        /// <param name="index"></param>
+        /// <param name="id"></param>
         [DllImport(DllName, EntryPoint = "Api_WithdrawMsg")]
         public static extern void Api_WithdrawMsg(string rqq, string group, string index, string id);
 
