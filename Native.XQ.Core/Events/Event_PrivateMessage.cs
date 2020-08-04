@@ -12,9 +12,9 @@ namespace Native.XQ.Core.Events
     {
         public void PrivateMessage(object sender, XQAppPrivateMsgEventArgs e)
         {
-            if (e.Content.ToLower().Equals("Jie2GG".ToLower()))
+            if (e.Message.Content.ToLower().Equals("Jie2GG".ToLower()))
             {
-                e.FromQQ.SendMessage(,"")
+                e.FromQQ.SendMessage(e.RobotQQ, "永远滴神");
             }
         }
     }

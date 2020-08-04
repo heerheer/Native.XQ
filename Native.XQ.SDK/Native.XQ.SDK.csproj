@@ -69,8 +69,11 @@
     <Compile Include="Event\EventArgs\XQAppPrivateMsgEventArgs.cs" />
     <Compile Include="Event\EventArgs\XQAppGroupMsgEventArgs.cs" />
     <Compile Include="Event\EventArgs\XQEventArgs.cs" />
+    <Compile Include="Interfaces\IXQAppEnable.cs" />
+    <Compile Include="Interfaces\IXQAppDisable.cs" />
     <Compile Include="Interfaces\IXQPrivateMessage.cs" />
     <Compile Include="Interfaces\IXQGroupMessage.cs" />
+    <Compile Include="Models\XQRobot.cs" />
     <Compile Include="Models\XQGroup.cs" />
     <Compile Include="Models\XQMessage.cs" />
     <Compile Include="Models\XQQQ.cs" />

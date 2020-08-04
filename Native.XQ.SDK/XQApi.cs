@@ -5,8 +5,12 @@ namespace Native.XQ.SDK
 {
     public static class XQApi
     {
-        private const string DllName = "xqapi.dll";
-        private const string NDllName = "Native.XQ.Lib.XQ.dll";
+        #region 成员
+        private const string DllName = "xqapi.dll";//官方API
+        private const string NDllName = "Native.XQ.Lib.XQ.dll";//易语言API桥
+        #endregion
+
+        #region 消息相关API
 
         /// <summary>
         /// 发送群消息
@@ -26,9 +30,6 @@ namespace Native.XQ.SDK
         [DllImport(NDllName, EntryPoint = "Native_SendPrivateMsg")]
         public static extern void Native_SendPrivateMsg(string robot, string qq, string msg);
 
-        [DllImport(DllName, EntryPoint = "Api_OutPutLog")]
-        public static extern void Api_OutPutLog(string content);
-
         /// <summary>
         /// 撤回指定消息
         /// </summary>
@@ -38,14 +39,20 @@ namespace Native.XQ.SDK
         /// <param name="id"></param>
         [DllImport(DllName, EntryPoint = "Api_WithdrawMsg")]
         public static extern void Api_WithdrawMsg(string rqq, string group, string index, string id);
+        #endregion 
+
+
+        [DllImport(DllName, EntryPoint = "Api_OutPutLog")]
+        public static extern void Api_OutPutLog(string content);
+
 
         [DllImport(DllName, EntryPoint = "Api_IsEnable")]
         public static extern bool Api_IsEnable();
 
-        [DllImport(DllName, EntryPoint = "Api_SendMsgEX", SetLastError = true, CallingConvention = CallingConvention.ThisCall)]
-        public static extern void Api_SendMsgStr(string rqq, int msgtype, string group, string qq, string msg, int bubbleid, bool hide = false);
+        [DllImport(DllName, EntryPoint = "Api_ShutUP")]
+        public static extern bool Api_ShutUP(string robotQQ,string group,string qq,int seconds);
 
-        [DllImport("msgsender.dll", EntryPoint = "Api_SendGroupMsg")]
-        public static extern void Api_SendGroupMsg(string a, string b, string c);
+        [DllImport(DllName, EntryPoint = "Api_KickGroupMBR")]
+        public static extern bool Api_KickGroupMBR(string robotQQ, string group, string qq, bool balcklist);
     }
 }

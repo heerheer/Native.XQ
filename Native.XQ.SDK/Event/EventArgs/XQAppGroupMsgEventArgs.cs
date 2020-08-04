@@ -18,7 +18,7 @@ namespace Native.XQ.SDK.Event.EventArgs
             RobotQQ = robotQQ;
             EventType = eventtype;
             ExtraType = extratype;
-            FromGroup = new XQGroup() { GroupId=fromGroup};
+            FromGroup = new XQGroup(fromGroup);
             Message = new XQMessage() { Content=msg,MsdId=id,MsgIndex=index};
         }
 

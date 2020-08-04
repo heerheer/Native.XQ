@@ -24,6 +24,10 @@ namespace Native.XQ.SDK.Event.EventArgs
         /// </summary>
         public int ExtraType { get; set; }
 
+        /// <summary>
+        /// 是否处理并阻塞
+        /// </summary>
+        public bool Handler { get; set; } = false;//默认不阻塞
 
     }
 }

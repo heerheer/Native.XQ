@@ -9,7 +9,9 @@ using Unity;
 
 namespace Native.XQ.Core
 {
-
+    /// <summary>
+    /// 返回的AppInfo
+    /// </summary>
     public class XQAppInfo
     {
         public string name { get; set; }
@@ -24,7 +26,7 @@ namespace Native.XQ.Core
         {
             return new XQAppInfo()
             {
-                name = "ExampleAPP",
+                name = "ExampleAPP",//请同步更改Core的程序集名为 %name%.XQ
                 pver = "1.0.0",//应用版本
                 author = "",//应用作者
                 desc = "",//插件描述
@@ -33,12 +35,16 @@ namespace Native.XQ.Core
             };
         }
     }
+    /// <summary>
+    /// 最重要的Jie哥类
+    /// </summary>
     public class XQMain
     {
         public static string AppDirectory { get; set; }
 
         public static void Register(IUnityContainer unityContainer)
         {
+            //Jie2GG,永远的神
             unityContainer.RegisterType<IXQGroupMessage, Event_GroupMessage>();
         }
     }

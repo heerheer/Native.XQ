@@ -8,6 +8,10 @@ namespace Native.XQ.SDK.Models
 {
     public class XQGroup
     {
+        public XQGroup(string groupid)
+        {
+            GroupId = groupid;
+        }
         public string GroupId { get; set; }
 
         /// <summary>

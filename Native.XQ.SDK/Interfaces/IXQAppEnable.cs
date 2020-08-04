@@ -7,13 +7,16 @@ using Native.XQ.SDK.Event.EventArgs;
 
 namespace Native.XQ.SDK.Interfaces
 {
-    public interface IXQPrivateMessage
+    /// <summary>
+    /// 插件被关闭
+    /// </summary>
+    public interface IXQAppEnable
     {
         /// <summary>
         /// 主入口
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        void PrivateMessage(object sender, XQAppPrivateMsgEventArgs e);
+        void AppEnable(object sender, EventArgs e);
     }
 }
