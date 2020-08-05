@@ -23,6 +23,8 @@ namespace Native.XQ.Core.Events.Core
 
             XQEvent.Event_GroupMsgHandler += unityContainer.Resolve<IXQGroupMessage>().GroupMessage;
             XQEvent.Event_PrivateMsgHandler  += unityContainer.Resolve<IXQPrivateMessage>().PrivateMessage;
+            XQEvent.Event_AppEnableHandler  += unityContainer.Resolve<IXQAppEnable>().AppEnable;
+            XQEvent.Event_AppDisableHandler  += unityContainer.Resolve<IXQAppDisable>().AppDisable;
         }
 
     }
