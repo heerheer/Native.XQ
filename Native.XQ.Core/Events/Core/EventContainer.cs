@@ -21,10 +21,14 @@ namespace Native.XQ.Core.Events.Core
 
             XQApi.Api_OutPutLog($"事件依赖注入...{unityContainer.Registrations.Count()}");
 
-            XQEvent.Event_GroupMsgHandler += unityContainer.Resolve<IXQGroupMessage>().GroupMessage;
-            XQEvent.Event_PrivateMsgHandler  += unityContainer.Resolve<IXQPrivateMessage>().PrivateMessage;
-            XQEvent.Event_AppEnableHandler  += unityContainer.Resolve<IXQAppEnable>().AppEnable;
-            XQEvent.Event_AppDisableHandler  += unityContainer.Resolve<IXQAppDisable>().AppDisable;
+            if(unityContainer.IsRegistered<IXQGroupMessage>())
+                XQEvent.Event_GroupMsgHandler += unityContainer.Resolve<IXQGroupMessage>().GroupMessage;
+            if(unityContainer.IsRegistered<IXQPrivateMessage>())
+                XQEvent.Event_PrivateMsgHandler  += unityContainer.Resolve<IXQPrivateMessage>().PrivateMessage;
+            if(unityContainer.IsRegistered<IXQAppEnable>())
+                XQEvent.Event_AppEnableHandler  += unityContainer.Resolve<IXQAppEnable>().AppEnable;
+            if(unityContainer.IsRegistered<IXQAppDisable>())
+                XQEvent.Event_AppDisableHandler  += unityContainer.Resolve<IXQAppDisable>().AppDisable;
         }
 
     }

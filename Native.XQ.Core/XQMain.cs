@@ -45,7 +45,7 @@ namespace Native.XQ.Core
         public static void Register(IUnityContainer unityContainer)
         {
             //Jie2GG,永远的神
-            unityContainer.RegisterType<IXQGroupMessage, Event_GroupMessage>();
+            //unityContainer.RegisterType<IXQGroupMessage, Event_GroupMessage>();
             unityContainer.RegisterType<IXQPrivateMessage, Event_PrivateMessage>();
         }
     }
