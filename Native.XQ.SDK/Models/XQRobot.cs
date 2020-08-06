@@ -54,5 +54,10 @@ namespace Native.XQ.SDK.Models
            qq.SendMessage(RobotQQ, msg);
 
         }
+
+        public IEnumerable<XQGroup> GetGroupList()
+        {
+            return XQApi.Api_GetGroupList_B(RobotQQ).Split('\n').ToList().Select(s=>new XQGroup(s));
+        }
     }
 }

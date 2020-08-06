@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Native.XQ.SDK.Event.EventArgs;
 using Native.XQ.SDK.Interfaces;
+using Native.XQ.SDK.Models;
 
 namespace Native.XQ.Core.Events
 {
@@ -15,6 +16,11 @@ namespace Native.XQ.Core.Events
             if (e.Message.Content.ToLower().Equals("Jie2GG".ToLower()))
             {
                 e.FromQQ.SendMessage(e.RobotQQ, "永远滴神");
+                
+            }
+            if (e.Message.Content == "LetMeSeeGroups")
+            {
+                e.FromQQ.SendMessage(e.RobotQQ, string.Join(",", new XQRobot() { RobotQQ = e.RobotQQ }.GetGroupList().Select(s => s.GroupId)));
             }
         }
     }

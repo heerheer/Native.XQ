@@ -54,5 +54,8 @@ namespace Native.XQ.SDK
 
         [DllImport(DllName, EntryPoint = "Api_KickGroupMBR")]
         public static extern void Api_KickGroupMBR(string robotQQ, string group, string qq, bool balcklist);
+
+        [DllImport(DllName, EntryPoint = "Api_GetGroupList_B")]
+        public static extern string Api_GetGroupList_B(string robotQQ);
     }
 }
