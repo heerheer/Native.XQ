@@ -50,7 +50,7 @@ namespace Native.XQ.Core.Events.Core
             {
                 if (Event_GroupMsgHandler != null)
                 {
-                    XQAppGroupMsgEventArgs args = new XQAppGroupMsgEventArgs(robotQQ, (int)EventType, (int)ExtraType, From, content, index, id);
+                    XQAppGroupMsgEventArgs args = new XQAppGroupMsgEventArgs(robotQQ, (int)EventType, (int)ExtraType, From,FromQQ, content, index, id);
                     Event_GroupMsgHandler(typeof(XQEvent), args);
                     return (args.Handler ? 2 : 1);
                     //阻塞返回2，继续返回1
