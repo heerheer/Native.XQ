@@ -59,5 +59,10 @@ namespace Native.XQ.SDK.Models
         {
             return XQApi.Api_GetGroupList_B(RobotQQ).Split('\n').ToList().Select(s=>new XQGroup(s));
         }
+
+        public string GetGroupMemberListJson(string group)
+        {
+           return XQApi.Api_GetGroupMemberList(RobotQQ,group);
+        }
     }
 }
