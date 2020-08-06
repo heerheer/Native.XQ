@@ -23,13 +23,13 @@ namespace Native.XQ.SDK.Models
         public string QQId { get; set; }
 
         /// <summary>
-        /// 发送群消息
+        /// 发送私聊消息
         /// </summary>
         /// <param name="robotQQ">操作QQ</param>
         /// <param name="msg">消息</param>
         public void SendMessage(string robotQQ, string msg)
         {
-            XQApi.Native_SendGroupMsg(robotQQ, QQId, msg);
+            XQApi.Native_SendPrivateMsg(robotQQ, QQId, msg);
         }
 
     }
