@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Runtime.InteropServices;
+using System.Threading;
+using Native.XQ.Sdk.Core;
 
 namespace Native.XQ.SDK
 {
@@ -8,6 +10,12 @@ namespace Native.XQ.SDK
         #region 成员
         private const string DllName = "xqapi.dll";//官方APIDll
         #endregion
+
+
+        static XQDLL()
+        {
+            
+        }
 
         #region 消息相关API
 
@@ -18,7 +26,7 @@ namespace Native.XQ.SDK
         /// <param name="group"></param>
         /// <param name="msg"></param>
         [DllImport(DllName, EntryPoint = "Api_SendMsgEX")]
-        public static extern void Api_SendMsgEX(string robot,int type,string targetgroup,string targetqq,string content,int bubble,bool anyn);
+        public static extern void Api_SendMsgEX(string robot, int type, string targetgroup, string targetqq, string content, int bubble, bool anyn);
 
 
         /// <summary>
@@ -30,6 +38,9 @@ namespace Native.XQ.SDK
         /// <param name="id"></param>
         [DllImport(DllName, EntryPoint = "Api_WithdrawMsg")]
         public static extern void Api_WithdrawMsg(string rqq, string group, string index, string id);
+
+
+
         #endregion 
 
 

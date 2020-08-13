@@ -9,11 +9,8 @@ namespace Native.XQ.SDK.Event.EventArgs
 {
     public class XQAppPrivateMsgEventArgs : XQEventArgs
     {
-        public XQAppPrivateMsgEventArgs()
-        {
-        }
 
-        public XQAppPrivateMsgEventArgs(string robotQQ,int eventtype,int extratype ,string fromqq, string msg,string index,string id)
+        public XQAppPrivateMsgEventArgs(string robotQQ,int eventtype,int extratype ,string fromqq, string msg,string index,string id,XQAPI api):base(api)
         {
             RobotQQ = robotQQ;
             EventType = eventtype;

@@ -1,4 +1,6 @@
-﻿using System.IO;
+﻿using System;
+using System.IO;
+using System.Threading;
 using System.Threading.Tasks;
 using Native.XQ.SDK.Core;
 
@@ -7,6 +9,9 @@ namespace Native.XQ.SDK
     public class XQAPI
     {
         public XQAppInfo AppInfo { get; set; }
+
+        public Thread SendMsgThread;
+        public IntPtr Handle;
 
         public string AppDirectory
         {
@@ -24,11 +29,7 @@ namespace Native.XQ.SDK
         /// <param name="msg">消息内容</param>
         public void SendGroupMessage(string robotqq, string group, string msg)
         {
-            Task.Factory.StartNew(
-                () =>
-                {
                     XQDLL.Api_SendMsgEX(robotqq, 2, group, "", msg, 0, false);
-                });
         }
 
         /// <summary>
@@ -39,11 +40,8 @@ namespace Native.XQ.SDK
         /// <param name="msg">消息内容</param>
         public void SendPrivateMessage(string robotqq, string qq, string msg)
         {
-            Task.Factory.StartNew(
-                () =>
-                {
-        XQDLL.Api_SendMsgEX(robotqq, 1, "", qq, msg, 0, false);
-                });
+
+                XQDLL.Api_SendMsgEX(robotqq, 1, "", qq, msg, 0, false);
         }
 
         /// <summary>

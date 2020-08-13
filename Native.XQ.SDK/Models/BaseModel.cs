@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Native.XQ.SDK.Models
 {
-    public abstract class BaseModel
+    public  class BaseModel
     {
         /// <summary>
         /// 自带的XQAPI对象

@@ -9,7 +9,7 @@
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>Native.XQ.Core</RootNamespace>
-    <AssemblyName>ExampleAPP.XQ</AssemblyName>
+    <AssemblyName>ExampleAPP</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <Deterministic>true</Deterministic>
@@ -35,7 +35,7 @@
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x86'">
     <DebugSymbols>true</DebugSymbols>
-    <OutputPath>bin\</OutputPath>
+    <OutputPath>..\output\</OutputPath>
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <DebugType>full</DebugType>
     <PlatformTarget>x86</PlatformTarget>
@@ -109,8 +109,8 @@
     <Error Condition="!Exists('..\packages\Costura.Fody.4.1.0\build\Costura.Fody.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Costura.Fody.4.1.0\build\Costura.Fody.props'))" />
   </Target>
   <PropertyGroup>
-    <PostBuildEvent>
-    </PostBuildEvent>
+    <PostBuildEvent>if EXIST "$(TargetDir)\$(TargetName).XQ.dll" del "$(TargetDir)\$(TargetName).XQ.dll"
+rename "$(TargetPath)" "$(TargetName).XQ.dll"</PostBuildEvent>
   </PropertyGroup>
   <PropertyGroup>
     <DllExportIdent>E925C1C8-E4ED-4FBC-A4CD-D30EA50DC123</DllExportIdent>

@@ -52,7 +52,7 @@ namespace Native.XQ.Core.Events.Core
             {
                 if (Event_GroupMsgHandler != null)//群聊消息
                 {
-                    XQAppGroupMsgEventArgs args = new XQAppGroupMsgEventArgs(robotQQ, (int)EventType, (int)ExtraType, From, FromQQ, content, index, id);
+                    XQAppGroupMsgEventArgs args = new XQAppGroupMsgEventArgs(robotQQ, (int)EventType, (int)ExtraType, From, FromQQ, content, index, id,xqapi);
                     args.XQAPI = xqapi;
                     Event_GroupMsgHandler(typeof(XQEvent), args);
                     return (args.Handler ? 2 : 1);
@@ -63,7 +63,7 @@ namespace Native.XQ.Core.Events.Core
             {
                 if (Event_PrivateMsgHandler != null)
                 {
-                    XQAppPrivateMsgEventArgs args = new XQAppPrivateMsgEventArgs(robotQQ, (int)EventType, (int)ExtraType, From, content, index, id);
+                    XQAppPrivateMsgEventArgs args = new XQAppPrivateMsgEventArgs(robotQQ, (int)EventType, (int)ExtraType, From, content, index, id,xqapi);
                     args.XQAPI = xqapi;
                     Event_PrivateMsgHandler(typeof(XQEvent), args);
                     return (args.Handler ? 2 : 1);
@@ -113,7 +113,7 @@ namespace Native.XQ.Core.Events.Core
             //初始化基本XQAPI
             xqapi = new XQAPI();
             xqapi.AppInfo = XQMain.AppInfo();
-
+         
             //返回AppInfo Json
             return AppInfo();
         }

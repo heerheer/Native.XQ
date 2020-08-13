@@ -8,6 +8,11 @@ namespace Native.XQ.SDK.Event.EventArgs
 {
     public abstract class XQEventArgs
     {
+
+        public XQEventArgs(XQAPI api)
+        {
+            this.XQAPI = api;
+        }
         /// <summary>
         /// 基本XQAPI
         /// </summary>

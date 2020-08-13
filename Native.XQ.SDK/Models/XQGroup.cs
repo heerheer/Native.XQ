@@ -11,6 +11,7 @@ namespace Native.XQ.SDK.Models
         public XQGroup(string groupid,XQAPI api) : base(api)
         {
             Id = groupid;
+            
         }
         public string Id { get; set; }
 
