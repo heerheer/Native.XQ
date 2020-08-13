@@ -19,7 +19,7 @@ namespace Native.XQ.SDK.Event.EventArgs
             EventType = eventtype;
             ExtraType = extratype;
             FromQQ = new XQQQ(fromQQ,XQAPI);
-            FromGroup = new XQGroup(fromGroup);
+            FromGroup = new XQGroup(fromGroup,XQAPI);
             Message = new XQMessage() { Text=msg,MsdId=id,MsgIndex=index};
         }
 
