@@ -4,24 +4,24 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Native.XQ.Core.Events;
+using Native.XQ.SDK.Core;
 using Native.XQ.SDK.Interfaces;
 using Unity;
 
 namespace Native.XQ.Core
 {
     /// <summary>
-    /// 返回的AppInfo
+    /// 最重要的Jie哥类
     /// </summary>
-    public class XQAppInfo
+    public class XQMain
     {
-        public string name { get; set; }
-        public string pver { get; set; }
-        public string author { get; set; }
-        public string desc { get; set; }
-        public int sver { get; set; }
+        public static string AppDirectory { get; set; }
 
 
-        //请在这里改变应用的信息
+        /// <summary>
+        /// 请在这里修改信息
+        /// </summary>
+        /// <returns></returns>
         public static XQAppInfo AppInfo()
         {
             return new XQAppInfo()
@@ -34,18 +34,16 @@ namespace Native.XQ.Core
 
             };
         }
-    }
-    /// <summary>
-    /// 最重要的Jie哥类
-    /// </summary>
-    public class XQMain
-    {
-        public static string AppDirectory { get; set; }
 
+
+        /// <summary>
+        /// 进行依赖注入
+        /// </summary>
+        /// <param name="unityContainer"></param>
         public static void Register(IUnityContainer unityContainer)
         {
-            //Jie2GG,永远的神
-            //unityContainer.RegisterType<IXQGroupMessage, Event_GroupMessage>();
+            
+            unityContainer.RegisterType<IXQGroupMessage, Event_GroupMessage>();
             unityContainer.RegisterType<IXQPrivateMessage, Event_PrivateMessage>();
         }
     }

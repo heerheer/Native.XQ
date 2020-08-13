@@ -14,6 +14,9 @@ namespace Native.XQ.SDK.Enums
         Group=2,
         GroupTmp=4,
         AddFriendReply=7,
-        Money=6
+        Money=6,
+
+
+        PluginEnable = 12000
     }
 }

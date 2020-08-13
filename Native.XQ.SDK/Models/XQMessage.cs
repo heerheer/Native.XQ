@@ -16,9 +16,9 @@ namespace Native.XQ.SDK.Models
         {
         }
 
-        public XQMessage(string content, string msgIndex, string msdId, XQGroup fromGroup)
+        public XQMessage(string text, string msgIndex, string msdId, XQGroup fromGroup)
         {
-            Content = content;
+            Text = text;
             MsgIndex = msgIndex;
             MsdId = msdId;
         }
@@ -26,7 +26,7 @@ namespace Native.XQ.SDK.Models
         /// <summary>
         /// 消息内容
         /// </summary>
-        public string Content { get; set; }
+        public string Text { get; set; }
 
         /// <summary>
         /// 消息序列
@@ -45,7 +45,7 @@ namespace Native.XQ.SDK.Models
         /// <param name="groupid">群号</param>
         public void Withdraw(string robotQQ,string groupid)
         {
-            XQApi.Api_WithdrawMsg(robotQQ, groupid, MsgIndex, MsdId);
+            XQDLL.Api_WithdrawMsg(robotQQ, groupid, MsgIndex, MsdId);
         }
 
         /// <summary>
@@ -55,7 +55,7 @@ namespace Native.XQ.SDK.Models
         /// <param name="group">XQGroup实体</param>
         public void Withdraw(string robotQQ, XQGroup group)
         {
-            XQApi.Api_WithdrawMsg(robotQQ, group.GroupId, MsgIndex, MsdId);
+            XQDLL.Api_WithdrawMsg(robotQQ, group.Id, MsgIndex, MsdId);
         }
     }
 }

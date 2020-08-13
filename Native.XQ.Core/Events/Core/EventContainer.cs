@@ -19,7 +19,7 @@ namespace Native.XQ.Core.Events.Core
 
             XQMain.Register(unityContainer);
 
-            XQApi.Api_OutPutLog($"事件依赖注入...{unityContainer.Registrations.Count()}");
+            XQDLL.Api_OutPutLog($"事件依赖注入...{unityContainer.Registrations.Count()}");
 
             if(unityContainer.IsRegistered<IXQGroupMessage>())
                 XQEvent.Event_GroupMsgHandler += unityContainer.Resolve<IXQGroupMessage>().GroupMessage;

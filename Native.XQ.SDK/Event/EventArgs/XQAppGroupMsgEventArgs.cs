@@ -18,9 +18,9 @@ namespace Native.XQ.SDK.Event.EventArgs
             RobotQQ = robotQQ;
             EventType = eventtype;
             ExtraType = extratype;
-            FromQQ = new XQQQ(fromQQ);
+            FromQQ = new XQQQ(fromQQ,XQAPI);
             FromGroup = new XQGroup(fromGroup);
-            Message = new XQMessage() { Content=msg,MsdId=id,MsgIndex=index};
+            Message = new XQMessage() { Text=msg,MsdId=id,MsgIndex=index};
         }
 
         /// <summary>
@@ -35,6 +35,8 @@ namespace Native.XQ.SDK.Event.EventArgs
         /// 消息
         /// </summary>
         public XQMessage Message { get; set; }
+
+        
 
     }
 }

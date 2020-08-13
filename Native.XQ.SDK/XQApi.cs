@@ -1,64 +1,60 @@
-﻿using System;
-using System.Runtime.InteropServices;
+﻿using System.IO;
+using System.Threading.Tasks;
+using Native.XQ.SDK.Core;
 
 namespace Native.XQ.SDK
 {
-    public static class XQApi
+    public class XQAPI
     {
-        #region 成员
-        private const string DllName = "xqapi.dll";//官方API
-        private const string NDllName = "Native.XQ.Lib.XQ.dll";//易语言API桥
-        #endregion
+        public XQAppInfo AppInfo { get; set; }
 
-        #region 消息相关API
+        public string AppDirectory
+        {
+            get
+            {
+                return Directory.GetCurrentDirectory() + "\\Config\\" + AppInfo.name + "\\";
+            }
+        }
 
         /// <summary>
         /// 发送群消息
         /// </summary>
-        /// <param name="robot"></param>
-        /// <param name="group"></param>
-        /// <param name="msg"></param>
-        [DllImport(NDllName, EntryPoint = "Native_SendGroupMsg")]
-        public static extern void Native_SendGroupMsg(string robot, string group, string msg);
+        /// <param name="robotqq">机器人QQ</param>
+        /// <param name="group">对象QQ群</param>
+        /// <param name="msg">消息内容</param>
+        public void SendGroupMessage(string robotqq, string group, string msg)
+        {
+            Task.Factory.StartNew(
+                () =>
+                {
+                    XQDLL.Api_SendMsgEX(robotqq, 2, group, "", msg, 0, false);
+                });
+        }
 
         /// <summary>
         /// 发送私聊消息
         /// </summary>
-        /// <param name="robot"></param>
-        /// <param name="qq"></param>
-        /// <param name="msg"></param>
-        [DllImport(NDllName, EntryPoint = "Native_SendPrivateMsg")]
-        public static extern void Native_SendPrivateMsg(string robot, string qq, string msg);
+        /// <param name="robotqq">机器人QQ</param>
+        /// <param name="qq">对象QQ</param>
+        /// <param name="msg">消息内容</param>
+        public void SendPrivateMessage(string robotqq, string qq, string msg)
+        {
+            Task.Factory.StartNew(
+                () =>
+                {
+        XQDLL.Api_SendMsgEX(robotqq, 1, "", qq, msg, 0, false);
+                });
+        }
 
         /// <summary>
-        /// 撤回指定消息
+        /// 踢出群员
         /// </summary>
-        /// <param name="rqq"></param>
-        /// <param name="group"></param>
-        /// <param name="index"></param>
-        /// <param name="id"></param>
-        [DllImport(DllName, EntryPoint = "Api_WithdrawMsg")]
-        public static extern void Api_WithdrawMsg(string rqq, string group, string index, string id);
-        #endregion 
-
-
-        [DllImport(DllName, EntryPoint = "Api_OutPutLog")]
-        public static extern void Api_OutPutLog(string content);
-
-
-        [DllImport(DllName, EntryPoint = "Api_IsEnable")]
-        public static extern bool Api_IsEnable();
-
-        [DllImport(DllName, EntryPoint = "Api_ShutUP")]
-        public static extern void Api_ShutUP(string robotQQ,string group,string qq,int seconds);
-
-        [DllImport(DllName, EntryPoint = "Api_KickGroupMBR")]
-        public static extern void Api_KickGroupMBR(string robotQQ, string group, string qq, bool balcklist);
-
-        [DllImport(DllName, EntryPoint = "Api_GetGroupList_B")]
-        public static extern string Api_GetGroupList_B(string robotQQ);
-
-        [DllImport(DllName, EntryPoint = "Api_GetGroupMemberList")]
-        public static extern string Api_GetGroupMemberList(string robotQQ, string groupId);
+        /// <param name="robotQQ">响应机器人QQ</param>
+        /// <param name="targetQQ">目标qq</param>
+        /// <param name="blacklist">是否加入黑名单</param>
+        public void KickGroupMember(string robotQQ, string group, string targetQQ, bool blacklist = false)
+        {
+            XQDLL.Api_KickGroupMBR(robotQQ, group, targetQQ, blacklist);
+        }
     }
 }

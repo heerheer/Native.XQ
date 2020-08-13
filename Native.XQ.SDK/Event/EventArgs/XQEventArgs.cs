@@ -8,6 +8,10 @@ namespace Native.XQ.SDK.Event.EventArgs
 {
     public abstract class XQEventArgs
     {
+        /// <summary>
+        /// 基本XQAPI
+        /// </summary>
+        public XQAPI XQAPI { get; set; }
 
         /// <summary>
         /// 收到事件的QQ

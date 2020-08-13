@@ -1,6 +1,7 @@
 ﻿using System;
 using System.IO;
 using System.Runtime.InteropServices;
+using Native.XQ.SDK;
 using Native.XQ.SDK.Enums;
 using Native.XQ.SDK.Event.EventArgs;
 using Native.XQ.SDK.Interfaces;
@@ -18,6 +19,8 @@ namespace Native.XQ.Core.Events.Core
         public static event EventHandler Event_AppDisableHandler;
 
         public static event EventHandler Event_AppEnableHandler;
+
+        public static XQAPI xqapi;
 
         static XQEvent()
         {
@@ -45,26 +48,34 @@ namespace Native.XQ.Core.Events.Core
         [DllExport(ExportName = "XQ_Event", CallingConvention = CallingConvention.StdCall)]
         public static int XQ_Event(string robotQQ, int EventType, int ExtraType, string From, string FromQQ, string targetQQ, string content, string index, string id, string udpmsg, string unix, int p)
         {
-            //XQApi.Api_OutPutLog($"来自:{From}的消息,Type{EventType}被我捉到啦!");
             if (EventType == (int)XQEventType.Group)
             {
-                if (Event_GroupMsgHandler != null)
+                if (Event_GroupMsgHandler != null)//群聊消息
                 {
-                    XQAppGroupMsgEventArgs args = new XQAppGroupMsgEventArgs(robotQQ, (int)EventType, (int)ExtraType, From,FromQQ, content, index, id);
+                    XQAppGroupMsgEventArgs args = new XQAppGroupMsgEventArgs(robotQQ, (int)EventType, (int)ExtraType, From, FromQQ, content, index, id);
+                    args.XQAPI = xqapi;
                     Event_GroupMsgHandler(typeof(XQEvent), args);
                     return (args.Handler ? 2 : 1);
                     //阻塞返回2，继续返回1
-
                 }
             }
-            if (EventType == (int)XQEventType.Friend)
+            if (EventType == (int)XQEventType.Friend)//好友消息
             {
                 if (Event_PrivateMsgHandler != null)
                 {
                     XQAppPrivateMsgEventArgs args = new XQAppPrivateMsgEventArgs(robotQQ, (int)EventType, (int)ExtraType, From, content, index, id);
+                    args.XQAPI = xqapi;
                     Event_PrivateMsgHandler(typeof(XQEvent), args);
                     return (args.Handler ? 2 : 1);
                     //阻塞返回2，继续返回1
+                }
+            }
+            if (EventType == (int)XQEventType.PluginEnable)//插件启动
+            {
+                if (Event_AppDisableHandler != null)
+                {
+                    var args = new EventArgs();
+                    Event_AppDisableHandler(typeof(XQEvent), args);
                 }
             }
             return 1;
@@ -82,7 +93,7 @@ namespace Native.XQ.Core.Events.Core
             {
                 Directory.CreateDirectory(Directory.GetCurrentDirectory() + "\\Config");
             }
-            XQMain.AppDirectory = Directory.GetCurrentDirectory() + "\\Config\\" + XQAppInfo.AppInfo().name;
+            XQMain.AppDirectory = Directory.GetCurrentDirectory() + "\\Config\\" + XQMain.AppInfo().name + "\\";
             if (!Directory.Exists(XQMain.AppDirectory))
             {
                 Directory.CreateDirectory(XQMain.AppDirectory);
@@ -97,9 +108,13 @@ namespace Native.XQ.Core.Events.Core
                     var args = new EventArgs();
                     Event_AppDisableHandler(typeof(XQEvent), args);
                 }
-
             }
 
+            //初始化基本XQAPI
+            xqapi = new XQAPI();
+            xqapi.AppInfo = XQMain.AppInfo();
+
+            //返回AppInfo Json
             return AppInfo();
         }
 
@@ -129,7 +144,6 @@ namespace Native.XQ.Core.Events.Core
             {
                 var args = new EventArgs();
                 Event_AppEnableHandler(typeof(XQEvent), args);
-                
             }
             return 0;
         }
@@ -140,8 +154,7 @@ namespace Native.XQ.Core.Events.Core
         /// <returns></returns>
         public static string AppInfo()
         {
-            return JsonConvert.SerializeObject(XQAppInfo.AppInfo());
+            return JsonConvert.SerializeObject(XQMain.AppInfo());
         }
-
     }
 }

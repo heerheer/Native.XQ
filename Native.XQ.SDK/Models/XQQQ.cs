@@ -9,18 +9,20 @@ namespace Native.XQ.SDK.Models
     /// <summary>
     /// 对QQ的实体类
     /// </summary>
-    public class XQQQ
+    public class XQQQ:BaseModel
     {
 
-        public XQQQ(string qq)
+        public XQQQ(string qq,XQAPI api):base(api)
         {
-            this.QQId = qq;
+            
+            this.Id = qq;
+            
         }
 
         /// <summary>
         /// QQ号
         /// </summary>
-        public string QQId { get; set; }
+        public string Id { get; set; }
 
         /// <summary>
         /// 发送私聊消息
@@ -29,7 +31,7 @@ namespace Native.XQ.SDK.Models
         /// <param name="msg">消息</param>
         public void SendMessage(string robotQQ, string msg)
         {
-            XQApi.Native_SendPrivateMsg(robotQQ, QQId, msg);
+            XQAPI.SendPrivateMessage(robotQQ,this.Id, msg);
         }
 
     }

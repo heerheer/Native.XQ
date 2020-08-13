@@ -341,3 +341,5 @@ healthchecksdb
 
 # Doc
 doc/
+/output
+/Native.Framework.Jie.png

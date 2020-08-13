@@ -9,8 +9,13 @@ namespace Native.XQ.SDK.Models
     /// <summary>
     /// 相应QQ(机器人)的实体类
     /// </summary>
-    public class XQRobot
+    public class XQRobot : BaseModel
     {
+        public XQRobot(string qq,XQAPI api) : base(api)
+        {
+            this.RobotQQ = qq;
+        }
+
         /// <summary>
         /// 相应QQ号
         /// </summary>
@@ -23,7 +28,7 @@ namespace Native.XQ.SDK.Models
         /// <param name="msg"></param>
         public void SendGroupMessage(string groupid,string msg)
         {
-            new XQGroup(groupid).SendMessage(RobotQQ, msg);
+            new XQGroup(groupid,XQAPI).SendMessage(RobotQQ, msg);
         }
         /// <summary>
         /// 发送群消息
@@ -42,7 +47,7 @@ namespace Native.XQ.SDK.Models
         /// <param name="msg"></param>
         public void SendPrivateMessage(string qq, string msg)
         {
-            new XQQQ(qq).SendMessage(RobotQQ, msg);
+            new XQQQ(qq,XQAPI).SendMessage(RobotQQ, msg);
         }
         /// <summary>
         /// 发送私聊消息
@@ -57,12 +62,13 @@ namespace Native.XQ.SDK.Models
 
         public IEnumerable<XQGroup> GetGroupList()
         {
-            return XQApi.Api_GetGroupList_B(RobotQQ).Split('\n').ToList().Select(s=>new XQGroup(s));
+            return XQDLL.Api_GetGroupList_B(RobotQQ).Split('\n').ToList().Select(s=>new XQGroup(s,XQAPI));
         }
 
-        public string GetGroupMemberListJson(string group)
+        public string GetGroupMemberList(string group)
         {
-           return XQApi.Api_GetGroupMemberList(RobotQQ,group);
+           var json = XQDLL.Api_GetGroupMemberList_B(RobotQQ,group);
+            return "";
         }
     }
 }

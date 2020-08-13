@@ -6,13 +6,13 @@ using System.Threading.Tasks;
 
 namespace Native.XQ.SDK.Models
 {
-    public class XQGroup
+    public class XQGroup:BaseModel
     {
-        public XQGroup(string groupid)
+        public XQGroup(string groupid,XQAPI api) : base(api)
         {
-            GroupId = groupid;
+            Id = groupid;
         }
-        public string GroupId { get; set; }
+        public string Id { get; set; }
 
         /// <summary>
         /// 发送群消息
@@ -21,7 +21,7 @@ namespace Native.XQ.SDK.Models
         /// <param name="msg"></param>
         public void SendMessage(string robotQQ,string msg)
         {
-            XQApi.Native_SendGroupMsg(robotQQ, GroupId, msg);
+            XQAPI.SendGroupMessage(robotQQ, this.Id, msg);
         }
 
         /// <summary>
@@ -32,7 +32,7 @@ namespace Native.XQ.SDK.Models
         /// <param name="blacklist">是否加入黑名单</param>
         public void KickMember(string robotQQ, string targetQQ, bool blacklist = false)
         {
-            XQApi.Api_KickGroupMBR(robotQQ,GroupId,targetQQ,blacklist);
+            XQAPI.KickGroupMember(robotQQ, Id, targetQQ,blacklist);
         }
 
         /// <summary>
@@ -43,7 +43,7 @@ namespace Native.XQ.SDK.Models
         /// <param name="seconds"></param>
         public void ShutUpMember(string robotQQ, string targetQQ,int seconds)
         {
-            XQApi.Api_ShutUP(robotQQ, GroupId, targetQQ, seconds);
+            XQDLL.Api_ShutUP(robotQQ, Id, targetQQ, seconds);
         }
     }
 }
