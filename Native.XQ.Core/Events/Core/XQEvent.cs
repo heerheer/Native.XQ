@@ -12,15 +12,22 @@ namespace Native.XQ.Core.Events.Core
 {
     public static class XQEvent
     {
+        #region 事件
         public static event EventHandler<XQAppGroupMsgEventArgs> Event_GroupMsgHandler;
 
         public static event EventHandler<XQAppPrivateMsgEventArgs> Event_PrivateMsgHandler;
 
         public static event EventHandler<XQAddGroupEventArgs> Event_AddGroupHandler;
 
-        public static event EventHandler Event_AppDisableHandler;
+        public static event EventHandler<XQAddFriendEventArgs> Event_AddFriendHandler;
 
-        public static event EventHandler Event_AppEnableHandler;
+        public static event EventHandler<XQEventArgs> Event_AppDisableHandler;
+
+        public static event EventHandler<XQEventArgs> Event_AppEnableHandler;
+
+        public static event EventHandler<XQEventArgs> Event_CallMenu;
+
+        #endregion
 
         public static XQAPI xqapi;
 
@@ -75,7 +82,7 @@ namespace Native.XQ.Core.Events.Core
             {
                 if (Event_AppEnableHandler != null)
                 {
-                    var args = new EventArgs();
+                    var args = new XQEventArgs(xqapi);
                     Event_AppDisableHandler(typeof(XQEvent), args);
                 }
             }
@@ -112,14 +119,6 @@ namespace Native.XQ.Core.Events.Core
             //初始化事件容器
             EventContainer.Init();
 
-            if (EventContainer.unityContainer.IsRegistered<IXQAppEnable>())
-            {
-                if (Event_AppDisableHandler != null)
-                {
-                    var args = new EventArgs();
-                    Event_AppDisableHandler(typeof(XQEvent), args);
-                }
-            }
 
             //初始化基本XQAPI
             xqapi = new XQAPI();
@@ -138,7 +137,7 @@ namespace Native.XQ.Core.Events.Core
         {
             if (Event_AppDisableHandler != null)
             {
-                var args = new EventArgs();
+                var args = new XQEventArgs(xqapi);
                 Event_AppDisableHandler(typeof(XQEvent), args);
             }
             return 0;
@@ -151,10 +150,10 @@ namespace Native.XQ.Core.Events.Core
         [DllExport(ExportName = "XQ_SetUp", CallingConvention = CallingConvention.StdCall)]
         public static int XQ_SetUp()
         {
-            if (Event_AppEnableHandler != null)
+            if (Event_CallMenu != null)
             {
-                var args = new EventArgs();
-                Event_AppEnableHandler(typeof(XQEvent), args);
+                var args = new XQEventArgs(xqapi);
+                Event_CallMenu(typeof(XQEvent), args);
             }
             return 0;
         }

@@ -98,6 +98,10 @@
       <Project>{5999838b-1582-4dc9-95c3-72291ce4fc88}</Project>
       <Name>Native.XQ.SDK</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Native.XQ.UI.Test\Native.XQ.UI.Test.csproj">
+      <Project>{EE633B93-374B-4804-B533-A8A30A4CFF32}</Project>
+      <Name>Native.XQ.UI.Test</Name>
+    </ProjectReference>
   </ItemGroup>
   <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

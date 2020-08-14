@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using Native.XQ.Core.Events;
 using Native.XQ.SDK.Core;
 using Native.XQ.SDK.Interfaces;
+using Native.XQ.UI.Test;
 using Unity;
 
 namespace Native.XQ.Core
@@ -51,6 +52,7 @@ namespace Native.XQ.Core
             unityContainer.RegisterType<IXQGroupMessage, Event_GroupMessage>();
             unityContainer.RegisterType<IXQPrivateMessage, Event_PrivateMessage>();
             unityContainer.RegisterType<IXQAddGroup, Event_AddGroup>();
+            unityContainer.RegisterType<IXQCallMenu, MenuCaller>();
         }
     }
 

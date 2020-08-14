@@ -35,6 +35,12 @@ namespace Native.XQ.Core.Events.Core
 
             if (unityContainer.IsRegistered<IXQAddGroup>())
                 XQEvent.Event_AddGroupHandler += unityContainer.Resolve<IXQAddGroup>().AddGroup;
+
+            if (unityContainer.IsRegistered<IXQAddFriend>())
+                XQEvent.Event_AddFriendHandler += unityContainer.Resolve<IXQAddFriend>().AddFriend;
+
+            if (unityContainer.IsRegistered<IXQCallMenu>())
+                XQEvent.Event_CallMenu += unityContainer.Resolve<IXQCallMenu>().CallMenu;;
         }
 
     }

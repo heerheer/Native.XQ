@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Native.XQ.SDK.Event.EventArgs
 {
-    public abstract class XQEventArgs
+    public class XQEventArgs
     {
 
         public XQEventArgs(XQAPI api)
@@ -14,13 +14,13 @@ namespace Native.XQ.SDK.Event.EventArgs
             this.XQAPI = api;
         }
 
-        protected XQEventArgs(XQAPI xQAPI, string robotQQ, int eventType) : this(xQAPI)
+        public XQEventArgs(XQAPI xQAPI, string robotQQ, int eventType) : this(xQAPI)
         {
             RobotQQ = robotQQ;
             EventType = eventType;
         }
 
-        protected XQEventArgs(XQAPI xQAPI, string robotQQ, int eventType, int extraType) : this(xQAPI, robotQQ,eventType)
+        public XQEventArgs(XQAPI xQAPI, string robotQQ, int eventType, int extraType) : this(xQAPI, robotQQ,eventType)
         {
             ExtraType = extraType;
         }

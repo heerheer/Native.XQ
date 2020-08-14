@@ -17,6 +17,6 @@ namespace Native.XQ.SDK.Interfaces
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        void AppDisable(object sender, EventArgs e);
+        void AppDisable(object sender, XQEventArgs e);
     }
 }

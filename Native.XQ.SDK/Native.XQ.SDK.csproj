@@ -70,13 +70,16 @@
     <Compile Include="Enums\EventType.cs" />
     <Compile Include="Enums\PluginClickType.cs" />
     <Compile Include="Enums\ResponseType.cs" />
+    <Compile Include="Event\EventArgs\XQAddFriendEventArgs.cs" />
     <Compile Include="Event\EventArgs\XQAddGroupEventArgs.cs" />
     <Compile Include="Event\EventArgs\XQAppPrivateMsgEventArgs.cs" />
     <Compile Include="Event\EventArgs\XQAppGroupMsgEventArgs.cs" />
     <Compile Include="Event\EventArgs\XQEventArgs.cs" />
+    <Compile Include="Interfaces\IXQAddFriend.cs" />
     <Compile Include="Interfaces\IXQAddGroup.cs" />
     <Compile Include="Interfaces\IXQAppEnable.cs" />
     <Compile Include="Interfaces\IXQAppDisable.cs" />
+    <Compile Include="Interfaces\IXQCallMenu.cs" />
     <Compile Include="Interfaces\IXQPrivateMessage.cs" />
     <Compile Include="Interfaces\IXQGroupMessage.cs" />
     <Compile Include="Models\BaseModel.cs" />
