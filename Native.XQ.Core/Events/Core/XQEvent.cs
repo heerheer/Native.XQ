@@ -70,6 +70,7 @@ namespace Native.XQ.Core.Events.Core
                     //阻塞返回2，继续返回1
                 }
             }
+
             if (EventType == (int)XQEventType.PluginEnable)//插件启动
             {
                 if (Event_AppEnableHandler != null)
@@ -79,7 +80,7 @@ namespace Native.XQ.Core.Events.Core
                 }
             }
 
-            if (EventType == (int)XQEventType.AddGroup || EventType == (int)XQEventType.InvitedToGroup)//插件启动
+            if (EventType == (int)XQEventType.AddGroup || EventType == (int)XQEventType.InvitedToGroup)//群申请/邀请事件AddGroup
             {
                 if (Event_AddGroupHandler != null)
                 {
