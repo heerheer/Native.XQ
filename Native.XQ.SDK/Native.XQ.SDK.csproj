@@ -68,9 +68,12 @@
     <Compile Include="Core\Kernel32.cs" />
     <Compile Include="Core\XQAppInfo.cs" />
     <Compile Include="Enums\EventType.cs" />
+    <Compile Include="Enums\ResponseType.cs" />
+    <Compile Include="Event\EventArgs\XQAddGroupEventArgs.cs" />
     <Compile Include="Event\EventArgs\XQAppPrivateMsgEventArgs.cs" />
     <Compile Include="Event\EventArgs\XQAppGroupMsgEventArgs.cs" />
     <Compile Include="Event\EventArgs\XQEventArgs.cs" />
+    <Compile Include="Interfaces\IXQAddGroup.cs" />
     <Compile Include="Interfaces\IXQAppEnable.cs" />
     <Compile Include="Interfaces\IXQAppDisable.cs" />
     <Compile Include="Interfaces\IXQPrivateMessage.cs" />

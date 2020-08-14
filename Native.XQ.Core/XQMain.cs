@@ -35,6 +35,11 @@ namespace Native.XQ.Core
             };
         }
 
+        /*
+         暂时无法发送消息，见谅。
+         */
+
+        
 
         /// <summary>
         /// 进行依赖注入
@@ -45,6 +50,7 @@ namespace Native.XQ.Core
             
             unityContainer.RegisterType<IXQGroupMessage, Event_GroupMessage>();
             unityContainer.RegisterType<IXQPrivateMessage, Event_PrivateMessage>();
+            unityContainer.RegisterType<IXQAddGroup, Event_AddGroup>();
         }
     }
 

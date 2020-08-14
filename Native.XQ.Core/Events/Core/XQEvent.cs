@@ -16,6 +16,8 @@ namespace Native.XQ.Core.Events.Core
 
         public static event EventHandler<XQAppPrivateMsgEventArgs> Event_PrivateMsgHandler;
 
+        public static event EventHandler<XQAddGroupEventArgs> Event_AddGroupHandler;
+
         public static event EventHandler Event_AppDisableHandler;
 
         public static event EventHandler Event_AppEnableHandler;
@@ -53,7 +55,6 @@ namespace Native.XQ.Core.Events.Core
                 if (Event_GroupMsgHandler != null)//群聊消息
                 {
                     XQAppGroupMsgEventArgs args = new XQAppGroupMsgEventArgs(robotQQ, (int)EventType, (int)ExtraType, From, FromQQ, content, index, id,xqapi);
-                    args.XQAPI = xqapi;
                     Event_GroupMsgHandler(typeof(XQEvent), args);
                     return (args.Handler ? 2 : 1);
                     //阻塞返回2，继续返回1
@@ -64,7 +65,6 @@ namespace Native.XQ.Core.Events.Core
                 if (Event_PrivateMsgHandler != null)
                 {
                     XQAppPrivateMsgEventArgs args = new XQAppPrivateMsgEventArgs(robotQQ, (int)EventType, (int)ExtraType, From, content, index, id,xqapi);
-                    args.XQAPI = xqapi;
                     Event_PrivateMsgHandler(typeof(XQEvent), args);
                     return (args.Handler ? 2 : 1);
                     //阻塞返回2，继续返回1
@@ -72,12 +72,22 @@ namespace Native.XQ.Core.Events.Core
             }
             if (EventType == (int)XQEventType.PluginEnable)//插件启动
             {
-                if (Event_AppDisableHandler != null)
+                if (Event_AppEnableHandler != null)
                 {
                     var args = new EventArgs();
                     Event_AppDisableHandler(typeof(XQEvent), args);
                 }
             }
+
+            if (EventType == (int)XQEventType.AddGroup || EventType == (int)XQEventType.InvitedToGroup)//插件启动
+            {
+                if (Event_AddGroupHandler != null)
+                {
+                    var args = new XQAddGroupEventArgs(xqapi,robotQQ,EventType,FromQQ,From,udpmsg);
+                    Event_AddGroupHandler(typeof(XQEvent), args);
+                }
+            }
+
             return 1;
         }
 

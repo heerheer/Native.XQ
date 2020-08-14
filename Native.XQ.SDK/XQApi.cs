@@ -1,8 +1,10 @@
 ﻿using System;
 using System.IO;
+using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using Native.XQ.SDK.Core;
+using Native.XQ.SDK.Enums;
 
 namespace Native.XQ.SDK
 {
@@ -10,8 +12,6 @@ namespace Native.XQ.SDK
     {
         public XQAppInfo AppInfo { get; set; }
 
-        public Thread SendMsgThread;
-        public IntPtr Handle;
 
         public string AppDirectory
         {
@@ -20,6 +20,36 @@ namespace Native.XQ.SDK
                 return Directory.GetCurrentDirectory() + "\\Config\\" + AppInfo.name + "\\";
             }
         }
+
+        #region 日志相关
+
+        public void Log(string msg)
+        {
+            XQDLL.Api_OutPutLog(msg);
+        }
+
+        public void Info(params object[] contents)
+        {
+            StringBuilder sb = new StringBuilder();
+            sb.Append("[Info]");
+            foreach (var item in contents)
+            {
+                if (item == null)
+                {
+                    sb.Append("");
+                }
+                else
+                {
+                    sb.Append(item);
+                }
+            }
+            XQDLL.Api_OutPutLog(sb.ToString());
+
+        }
+
+        #endregion
+
+
 
         /// <summary>
         /// 发送群消息
@@ -53,6 +83,12 @@ namespace Native.XQ.SDK
         public void KickGroupMember(string robotQQ, string group, string targetQQ, bool blacklist = false)
         {
             XQDLL.Api_KickGroupMBR(robotQQ, group, targetQQ, blacklist);
+        }
+
+
+        public void HanldeGroupEvent(string robotQQ, int type, string qq, string group, string seq, ResponseType rtype, string msg = "")
+        {
+            XQDLL.Api_HandleGroupEvent(robotQQ,type,qq,group,seq,(int)rtype,msg);
         }
     }
 }

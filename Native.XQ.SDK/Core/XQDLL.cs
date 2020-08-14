@@ -64,5 +64,8 @@ namespace Native.XQ.SDK
         public static extern string Api_GetGroupMemberList(string robotQQ, string groupId);
         [DllImport(DllName, EntryPoint = "Api_GetGroupMemberList_B")]
         public static extern string Api_GetGroupMemberList_B(string robotQQ, string groupId);
+
+        [DllImport(DllName, EntryPoint = "Api_HandleGroupEvent")]
+        public static extern string Api_HandleGroupEvent(string robotQQ, int type,string targetqq ,string group,string seq,int ResponeType,string msg);
     }
 }
