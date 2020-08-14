@@ -27,7 +27,7 @@ namespace Native.XQ.Core
             return new XQAppInfo()
             {
                 name = "ExampleAPP",//请同步更改Core的程序集名为 %name%.XQ
-                pver = "1.0.0",//应用版本
+                pver = "1.0.1",//应用版本
                 author = "ExampleAuthor",//应用作者
                 desc = "A Example App",//插件描述
                 sver = 1//SDK版本，请勿随意修改

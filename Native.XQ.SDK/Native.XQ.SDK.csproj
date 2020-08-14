@@ -68,6 +68,7 @@
     <Compile Include="Core\Kernel32.cs" />
     <Compile Include="Core\XQAppInfo.cs" />
     <Compile Include="Enums\EventType.cs" />
+    <Compile Include="Enums\PluginClickType.cs" />
     <Compile Include="Enums\ResponseType.cs" />
     <Compile Include="Event\EventArgs\XQAddGroupEventArgs.cs" />
     <Compile Include="Event\EventArgs\XQAppPrivateMsgEventArgs.cs" />
