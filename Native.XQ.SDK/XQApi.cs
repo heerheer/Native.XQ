@@ -1,10 +1,13 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using Native.XQ.SDK.Core;
 using Native.XQ.SDK.Enums;
+using Native.XQ.SDK.Models;
 
 namespace Native.XQ.SDK
 {
@@ -137,6 +140,21 @@ namespace Native.XQ.SDK
         public void HanldeFriendEvent(string robotQQ, string qq, ResponseType rtype, string msg = "")
         {
             XQDLL.Api_HandleFriendEvent(robotQQ, qq, (int)rtype, msg);
+        }
+
+        /// <summary>
+        /// 获取群成员列表(XQGroup)
+        /// </summary>
+        /// <param name="robotQQ"></param>
+        /// <returns></returns>
+        public IEnumerable<XQGroup> GetGroupList(string robotQQ)
+        {
+            var str = XQDLL.Api_GetGroupList_B(robotQQ);
+            if (str == "" || str == null)
+            {
+                return null;
+            }
+            return str.Split(Environment.NewLine.ToCharArray()).Select(s=>new XQGroup(s,this));
         }
     }
 }
