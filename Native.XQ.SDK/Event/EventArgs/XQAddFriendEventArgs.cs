@@ -12,9 +12,9 @@ namespace Native.XQ.SDK.Event.EventArgs
 
         public XQQQ FromQQ { get; set; }
 
-        public XQAddFriendEventArgs(XQAPI xQAPI, string robotQQ, int eventType,string qq) : base(xQAPI, robotQQ, eventType)
+        public XQAddFriendEventArgs(XQAPI xqapi, string robotQQ, int eventType,string qq) : base(xqapi, robotQQ, eventType)
         {
-            FromQQ = new XQQQ(qq,XQAPI);
+            FromQQ = new XQQQ(qq,xqapi);
         }
 
         public void Pass()

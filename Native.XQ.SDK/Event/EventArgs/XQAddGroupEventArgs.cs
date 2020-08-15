@@ -16,8 +16,8 @@ namespace Native.XQ.SDK.Event.EventArgs
 
         public XQAddGroupEventArgs(XQAPI api,string robotqq,int eventtype,string qq,string group,string seq) : base(api,robotqq,eventtype)
         {
-            FromQQ = new XQQQ( qq,XQAPI);
-            FromGroup =new XQGroup( group,XQAPI);
+            FromQQ = new XQQQ( qq,api);
+            FromGroup =new XQGroup( group,api);
             Seq = seq;
         }
 

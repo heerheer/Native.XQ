@@ -15,7 +15,7 @@ namespace Native.XQ.SDK.Event.EventArgs
             RobotQQ = robotQQ;
             EventType = eventtype;
             ExtraType = extratype;
-            FromQQ = new XQQQ(fromqq,XQAPI);
+            FromQQ = new XQQQ(fromqq,api);
             Message = new XQMessage() { Text = msg, MsdId = id, MsgIndex = index };
         }
 

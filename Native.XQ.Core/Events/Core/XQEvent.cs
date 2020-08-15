@@ -4,15 +4,14 @@ using System.Runtime.InteropServices;
 using Native.XQ.SDK;
 using Native.XQ.SDK.Enums;
 using Native.XQ.SDK.Event.EventArgs;
-using Native.XQ.SDK.Interfaces;
 using Newtonsoft.Json;
-using Unity;
 
 namespace Native.XQ.Core.Events.Core
 {
     public static class XQEvent
     {
         #region 事件
+
         public static event EventHandler<XQAppGroupMsgEventArgs> Event_GroupMsgHandler;
 
         public static event EventHandler<XQAppPrivateMsgEventArgs> Event_PrivateMsgHandler;
@@ -31,7 +30,7 @@ namespace Native.XQ.Core.Events.Core
 
         public static event EventHandler<XQEventArgs> Event_CallMenu;
 
-        #endregion
+        #endregion 事件
 
         public static XQAPI xqapi;
 
@@ -61,71 +60,79 @@ namespace Native.XQ.Core.Events.Core
         [DllExport(ExportName = "XQ_Event", CallingConvention = CallingConvention.StdCall)]
         public static int XQ_Event(string robotQQ, int eventType, int extraType, string from, string fromQQ, string targetQQ, string content, string index, string msgid, string udpmsg, string unix, int p)
         {
-            if (eventType == (int)XQEventType.Group)
+            try
             {
-                if (Event_GroupMsgHandler != null)//群聊消息
+                if (eventType == (int)XQEventType.Group)
                 {
-                    XQAppGroupMsgEventArgs args = new XQAppGroupMsgEventArgs(robotQQ, (int)eventType, (int)extraType, from, fromQQ, content, index, msgid,xqapi);
-                    Event_GroupMsgHandler(typeof(XQEvent), args);
-                    return (args.Handler ? 2 : 1);
-                    //阻塞返回2，继续返回1
+                    if (Event_GroupMsgHandler != null)//群聊消息
+                    {
+                        XQAppGroupMsgEventArgs args = new XQAppGroupMsgEventArgs(robotQQ, (int)eventType, (int)extraType, from, fromQQ, content, index, msgid, xqapi);
+                        Event_GroupMsgHandler(typeof(XQEvent), args);
+                        return (args.Handler ? 2 : 1);
+                        //阻塞返回2，继续返回1
+                    }
                 }
-            }
-            if (eventType == (int)XQEventType.Friend)//好友消息
-            {
-                if (Event_PrivateMsgHandler != null)
+                if (eventType == (int)XQEventType.Friend)//好友消息
                 {
-                    XQAppPrivateMsgEventArgs args = new XQAppPrivateMsgEventArgs(robotQQ, (int)eventType, (int)extraType, from, content, index, msgid,xqapi);
-                    Event_PrivateMsgHandler(typeof(XQEvent), args);
-                    return (args.Handler ? 2 : 1);
-                    //阻塞返回2，继续返回1
+                    if (Event_PrivateMsgHandler != null)
+                    {
+                        XQAppPrivateMsgEventArgs args = new XQAppPrivateMsgEventArgs(robotQQ, (int)eventType, (int)extraType, from, content, index, msgid, xqapi);
+                        Event_PrivateMsgHandler(typeof(XQEvent), args);
+                        return (args.Handler ? 2 : 1);
+                        //阻塞返回2，继续返回1
+                    }
                 }
-            }
 
-            if (eventType == (int)XQEventType.PluginEnable)//插件启动
-            {
-                if (Event_AppEnableHandler != null)
+                if (eventType == (int)XQEventType.PluginEnable)//插件启动
                 {
-                    var args = new XQEventArgs(xqapi);
-                    Event_AppDisableHandler(typeof(XQEvent), args);
+                    if (Event_AppEnableHandler != null)
+                    {
+                        var args = new XQEventArgs(xqapi);
+                        Event_AppDisableHandler(typeof(XQEvent), args);
+                    }
                 }
-            }
 
-            if (eventType == (int)XQEventType.AddGroup || eventType == (int)XQEventType.InvitedToGroup)//群申请/邀请事件AddGroup
-            {
-                if (Event_AddGroupHandler != null)
+                if (eventType == (int)XQEventType.AddGroup || eventType == (int)XQEventType.InvitedToGroup)//群申请/邀请事件AddGroup
                 {
-                    var args = new XQAddGroupEventArgs(xqapi,robotQQ,eventType,fromQQ,from,udpmsg);
-                    Event_AddGroupHandler(typeof(XQEvent), args);
+                    if (Event_AddGroupHandler != null)
+                    {
+                        var args = new XQAddGroupEventArgs(xqapi, robotQQ, eventType, fromQQ, from, udpmsg);
+                        Event_AddGroupHandler(typeof(XQEvent), args);
+                    }
                 }
-            }
-            if (eventType == (int)XQEventType.AddFriend )//加好友事件
-            {
-                if (Event_AddFriendHandler != null)
+                if (eventType == (int)XQEventType.AddFriend)//加好友事件
                 {
-                    var args = new XQAddFriendEventArgs(xqapi, robotQQ, eventType, fromQQ);
-                    Event_AddFriendHandler(typeof(XQEvent), args);
+                    if (Event_AddFriendHandler != null)
+                    {
+                        var args = new XQAddFriendEventArgs(xqapi, robotQQ, eventType, fromQQ);
+                        Event_AddFriendHandler(typeof(XQEvent), args);
+                    }
                 }
-            }
 
-            if (eventType == (int)XQEventType.BanSpeak)//被禁言
-            {
-                if (Event_BanSpeak != null)
+                if (eventType == (int)XQEventType.BanSpeak)//被禁言
                 {
-                    var args = new XQBanSpeakEventArgs(xqapi, robotQQ, eventType, fromQQ, targetQQ, from);
-                    Event_BanSpeak(typeof(XQEvent), args);
+                    if (Event_BanSpeak != null)
+                    {
+                        var args = new XQBanSpeakEventArgs(xqapi, robotQQ, eventType, fromQQ, targetQQ, from);
+                        Event_BanSpeak(typeof(XQEvent), args);
+                    }
                 }
-            }
 
-            if (eventType == (int)XQEventType.AddFriend)//被解除禁言
-            {
-                if (Event_UnBanSpeak != null)
+                if (eventType == (int)XQEventType.AddFriend)//被解除禁言
                 {
-                    var args = new XQUnBanSpeakEventArgs(xqapi, robotQQ, eventType, fromQQ,targetQQ,from);
-                    Event_UnBanSpeak(typeof(XQEvent), args);
+                    if (Event_UnBanSpeak != null)
+                    {
+                        var args = new XQUnBanSpeakEventArgs(xqapi, robotQQ, eventType, fromQQ, targetQQ, from);
+                        Event_UnBanSpeak(typeof(XQEvent), args);
+                    }
                 }
+                return 1;
             }
-            return 1;
+            catch (Exception ex)
+            {
+                xqapi.Log(ex.Message);
+                return 1;
+            }
         }
 
         /// <summary>
@@ -148,11 +155,10 @@ namespace Native.XQ.Core.Events.Core
             //初始化事件容器
             EventContainer.Init();
 
-
             //初始化基本XQAPI
             xqapi = new XQAPI();
             xqapi.AppInfo = XQMain.AppInfo();
-         
+
             //返回AppInfo Json
             return AppInfo();
         }
