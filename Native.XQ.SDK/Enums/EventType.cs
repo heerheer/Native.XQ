@@ -49,6 +49,9 @@
         /// </summary>
         LeaveGroup = 201,
 
+        BanSpeak=203,
+        UnBanSpeak=204,
+
         /// <summary>
         /// 插件被启用
         /// </summary>

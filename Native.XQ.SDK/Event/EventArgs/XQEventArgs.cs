@@ -14,13 +14,13 @@ namespace Native.XQ.SDK.Event.EventArgs
             this.XQAPI = api;
         }
 
-        public XQEventArgs(XQAPI xQAPI, string robotQQ, int eventType) : this(xQAPI)
+        public XQEventArgs(XQAPI xqapi, string robotQQ, int eventType) : this(xqapi)
         {
             RobotQQ = robotQQ;
             EventType = eventType;
         }
 
-        public XQEventArgs(XQAPI xQAPI, string robotQQ, int eventType, int extraType) : this(xQAPI, robotQQ,eventType)
+        public XQEventArgs(XQAPI xqapi, string robotQQ, int eventType, int extraType) : this(xqapi, robotQQ,eventType)
         {
             ExtraType = extraType;
         }

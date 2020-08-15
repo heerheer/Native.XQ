@@ -1,6 +1,4 @@
-﻿using System;
-using System.Text.RegularExpressions;
-using Native.XQ.SDK;
+﻿using System.Threading.Tasks;
 using Native.XQ.SDK.Event.EventArgs;
 using Native.XQ.SDK.Interfaces;
 
@@ -8,12 +6,33 @@ namespace Native.XQ.Core.Events
 {
     public class Event_GroupMessage : IXQGroupMessage
     {
+        public static bool isOn = false;
+
         public void GroupMessage(object sender, XQAppGroupMsgEventArgs e)
         {
-
-            if (e.Message.Text == "测试Task")
+            if (e.Message.Text == "苏醒吧，冰箱的主人！")
             {
-                e.FromGroup.SendMessage(e.RobotQQ, "测试成功\n-Native.XQ:Re\n线程调用API");
+                e.FromGroup.SendMessage(e.RobotQQ, "咕噜咕噜...");
+                isOn = true;
+            }
+
+            if (e.Message.Text == "苏醒吧，冰霜的主人!")
+            {
+                if (isOn)
+                {
+                    e.FromGroup.ShutUpMember(e.RobotQQ, e.FromQQ.Id, 60);
+                    e.FromGroup.SendMessage(e.RobotQQ, "...力量，请借我一用！");
+                    Task.Factory.StartNew(async () =>
+                    {
+                        await Task.Delay(2000);
+                        e.FromGroup.SendMessage(e.RobotQQ, "显现吧，白银之月！");
+                        e.FromGroup.ShutUpAll(e.RobotQQ);
+                        await Task.Delay(3000);
+                        e.FromGroup.SendMessage(e.RobotQQ, "极寒风暴！");
+                        e.FromGroup.UnShutUpAll(e.RobotQQ);
+                        isOn = false;
+                    });
+                }
             }
             //if (e.Message.Content.StartsWith("测试禁言"))
             //{
@@ -28,8 +47,6 @@ namespace Native.XQ.Core.Events
             //    {
             //    }
             //}
-
         }
-
     }
 }

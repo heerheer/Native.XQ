@@ -10,8 +10,15 @@ using Native.XQ.SDK.Interfaces;
 
 namespace Native.XQ.Core.Events
 {
-    public class Event_AddGroup : IXQAddGroup
+    public class Event_AddFriend : IXQAddFriend
     {
+        public void AddFriend(object sender, XQAddFriendEventArgs e)
+        {
+            e.XQAPI.Log("来了来了");
+            e.Pass();//直接通过
+            e.FromQQ.SendMessage(e.RobotQQ,"测试成功！你可以选择删除好友。");
+
+        }
 
         public void AddGroup(object sender, XQAddGroupEventArgs e)
         {

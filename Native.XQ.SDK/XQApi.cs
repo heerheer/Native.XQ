@@ -70,6 +70,19 @@ namespace Native.XQ.SDK
             XQDLL.Api_SendMsgEX(robotqq, 2, group, "", msg, 0, false);
         }
 
+
+        /// <summary>
+        /// 禁言群内成员
+        /// </summary>
+        /// <param name="robotQQ"></param>
+        /// <param name="id"></param>
+        /// <param name="targetQQ"></param>
+        /// <param name="seconds"></param>
+        public void ShutUpMember(string robotQQ, string group, string targetQQ, int seconds)
+        {
+            XQDLL.Api_ShutUP(robotQQ, group, targetQQ, seconds);
+        }
+
         /// <summary>
         /// 发送私聊消息
         /// </summary>
@@ -100,10 +113,30 @@ namespace Native.XQ.SDK
             XQDLL.Api_KickGroupMBR(robotQQ, group, targetQQ, blacklist);
         }
 
-
+        /// <summary>
+        /// 处理群申请
+        /// </summary>
+        /// <param name="robotQQ"></param>
+        /// <param name="type"></param>
+        /// <param name="qq"></param>
+        /// <param name="group"></param>
+        /// <param name="seq"></param>
+        /// <param name="rtype"></param>
+        /// <param name="msg"></param>
         public void HanldeGroupEvent(string robotQQ, int type, string qq, string group, string seq, ResponseType rtype, string msg = "")
         {
             XQDLL.Api_HandleGroupEvent(robotQQ,type,qq,group,seq,(int)rtype,msg);
+        }
+        /// <summary>
+        /// 处理好友申请
+        /// </summary>
+        /// <param name="robotQQ"></param>
+        /// <param name="qq"></param>
+        /// <param name="rtype"></param>
+        /// <param name="msg"></param>
+        public void HanldeFriendEvent(string robotQQ, string qq, ResponseType rtype, string msg = "")
+        {
+            XQDLL.Api_HandleFriendEvent(robotQQ, qq, (int)rtype, msg);
         }
     }
 }

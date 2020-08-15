@@ -44,7 +44,30 @@ namespace Native.XQ.SDK.Models
         /// <param name="seconds"></param>
         public void ShutUpMember(string robotQQ, string targetQQ,int seconds)
         {
-            XQDLL.Api_ShutUP(robotQQ, Id, targetQQ, seconds);
+            XQAPI.ShutUpMember(robotQQ, this.Id, targetQQ, seconds);
+        }
+
+        public void UnShutUpMember(string robotQQ, string targetQQ)
+        {
+            XQAPI.ShutUpMember(robotQQ, this.Id, targetQQ, 0);
+        }
+
+        /// <summary>
+        /// 全体禁言
+        /// </summary>
+        /// <param name="robotQQ"></param>
+        public void ShutUpAll(string robotQQ)
+        {
+            XQAPI.ShutUpMember(robotQQ, this.Id, "",1);
+        }
+
+        /// <summary>
+        /// 解除全体禁言
+        /// </summary>
+        /// <param name="robotQQ"></param>
+        public void UnShutUpAll(string robotQQ)
+        {
+            XQAPI.ShutUpMember(robotQQ, this.Id,"" ,0);
         }
     }
 }
