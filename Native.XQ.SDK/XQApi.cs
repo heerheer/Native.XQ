@@ -59,7 +59,15 @@ namespace Native.XQ.SDK
         /// <param name="msg">消息内容</param>
         public void SendGroupMessage(string robotqq, string group, string msg)
         {
-                    XQDLL.Api_SendMsgEX(robotqq, 2, group, "", msg, 0, false);
+            if (XQDLL.Api_IsEnable() == false)
+            {
+                if (HLib.HLibExist())
+                {
+                    HLib.SendMsgEx(robotqq, 2, group, "", msg, 0, false);
+                    return;
+                }
+            }
+            XQDLL.Api_SendMsgEX(robotqq, 2, group, "", msg, 0, false);
         }
 
         /// <summary>
@@ -70,8 +78,15 @@ namespace Native.XQ.SDK
         /// <param name="msg">消息内容</param>
         public void SendPrivateMessage(string robotqq, string qq, string msg)
         {
-
-                XQDLL.Api_SendMsgEX(robotqq, 1, "", qq, msg, 0, false);
+            if (XQDLL.Api_IsEnable() == false)
+            {
+                if (HLib.HLibExist())
+                {
+                    HLib.SendMsgEx(robotqq, 1, "", qq, msg, 0, false);
+                    return;
+                }
+            }
+            XQDLL.Api_SendMsgEX(robotqq, 1, "", qq, msg, 0, false);
         }
 
         /// <summary>
