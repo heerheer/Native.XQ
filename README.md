@@ -1,4 +1,4 @@
-# Native.XQ (维修)
+# Native.XQ (更新中)
 > Jie2GG，永远的神
 
 为XQRobot编写的c#开发SDK
@@ -17,3 +17,6 @@ Native.SDK 是为了方便 .Net 平台开发者高效开发 酷Q应用 的开发
 ### 关于HLib
 请前往社区查看 [先驱社区](https://discuss.xianqubot.com/d/27)
 
+## 更新记录
+
+20200815 更新禁言 撤回 API和事件 修复Enable事件。
