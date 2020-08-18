@@ -88,7 +88,7 @@ namespace Native.XQ.Core.Events.Core
                     if (Event_AppEnableHandler != null)
                     {
                         var args = new XQEventArgs(xqapi);
-                        Event_AppDisableHandler(typeof(XQEvent), args);
+                        Event_AppEnableHandler(typeof(XQEvent), args);
                     }
                 }
 
