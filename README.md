@@ -1,4 +1,4 @@
-# Native.XQ (更新中)
+# Native.XQ (暂停大型维护，等待先驱SDK升级)
 > Jie2GG，永远的神
 
 为XQRobot编写的c#开发SDK
