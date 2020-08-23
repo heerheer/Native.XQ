@@ -174,15 +174,15 @@ namespace Native.XQ.HIni.Tool
             }
             set
             {
-                var pair = Values.Find(p => p.Key == key);
-                if (pair.Equals(default(KeyValuePair<string, string>)))
+                var index = Values.FindIndex(p => p.Key == key);
+                if (index == -1)
                 {
-                    pair = new KeyValuePair<string, string>(key, value);
+                    var pair = new KeyValuePair<string, string>(key, value);
                     Values.Add(pair);
                 }
                 else
                 {
-                    pair = new KeyValuePair<string, string>(key, value);
+                    Values[index] = new KeyValuePair<string, string>(key, value);
                 }
             }
         }

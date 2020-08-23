@@ -1,6 +1,7 @@
 ﻿using System;
 using System.IO;
 using System.Runtime.InteropServices;
+using HuajiTech.UnmanagedExports;
 using Native.XQ.SDK;
 using Native.XQ.SDK.Enums;
 using Native.XQ.SDK.Event.EventArgs;
@@ -57,7 +58,7 @@ namespace Native.XQ.Core.Events.Core
         /// <param name="unix"></param>
         /// <param name="p"></param>
         /// <returns></returns>
-        [DllExport(ExportName = "XQ_Event", CallingConvention = CallingConvention.StdCall)]
+        [DllExport]
         public static int XQ_Event(string robotQQ, int eventType, int extraType, string from, string fromQQ, string targetQQ, string content, string index, string msgid, string udpmsg, string unix, int p)
         {
             try
@@ -140,7 +141,7 @@ namespace Native.XQ.Core.Events.Core
         /// </summary>
         /// <param name="frameworkVersion"></param>
         /// <returns></returns>
-        [DllExport(ExportName = "XQ_Create", CallingConvention = CallingConvention.StdCall)]
+        [DllExport]
         public static string XQ_Create(string frameworkVersion)
         {
             if (!Directory.Exists(Directory.GetCurrentDirectory() + "\\Config"))
@@ -167,7 +168,7 @@ namespace Native.XQ.Core.Events.Core
         /// 插件销毁
         /// </summary>
         /// <returns></returns>
-        [DllExport(ExportName = "XQ_DestroyPlugin", CallingConvention = CallingConvention.StdCall)]
+        [DllExport]
         public static int XQ_DestroyPlugin()
         {
             if (Event_AppDisableHandler != null)
@@ -182,7 +183,7 @@ namespace Native.XQ.Core.Events.Core
         /// 打开设置界面函数
         /// </summary>
         /// <returns></returns>
-        [DllExport(ExportName = "XQ_SetUp", CallingConvention = CallingConvention.StdCall)]
+        [DllExport]
         public static int XQ_SetUp()
         {
             if (Event_CallMenu != null)

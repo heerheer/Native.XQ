@@ -17,6 +17,8 @@ namespace Native.XQ.Core
     {
         public static string AppDirectory { get; set; }
 
+        public static string CSSDKVersion { get; set; } = "20200823";
+
 
         /// <summary>
         /// 请在这里修改信息
@@ -27,7 +29,7 @@ namespace Native.XQ.Core
             return new XQAppInfo()
             {
                 name = "ExampleAPP",//请同步更改Core的程序集名为 %name%.XQ
-                pver = "1.0.2",//应用版本
+                pver = "1.0.0",//应用版本
                 author = "ExampleAuthor",//应用作者
                 desc = "A Example App",//插件描述
                 sver = 1//SDK版本，请勿随意修改
@@ -35,22 +37,16 @@ namespace Native.XQ.Core
             };
         }
 
-        /*
-         暂时无法发送消息，见谅。
-         */
-
-        
-
+       
         /// <summary>
         /// 进行依赖注入
         /// </summary>
         /// <param name="unityContainer"></param>
         public static void Register(IUnityContainer unityContainer)
         {
-            
+            //注入方式为 unityContainer.RegisterType<接口, 继承接口的类>();
             unityContainer.RegisterType<IXQGroupMessage, Event_GroupMessage>();
             unityContainer.RegisterType<IXQPrivateMessage, Event_PrivateMessage>();
-            unityContainer.RegisterType<IXQAddFriend, Event_AddFriend>();
         }
     }
 

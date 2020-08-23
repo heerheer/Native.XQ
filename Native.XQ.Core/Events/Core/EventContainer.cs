@@ -15,7 +15,6 @@ namespace Native.XQ.Core.Events.Core
 
         public static void Init()
         {
-            CosturaUtility.Initialize();
 
             XQMain.Register(unityContainer);
 
