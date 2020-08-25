@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Runtime.InteropServices;
 using System.Threading;
-using Native.XQ.Sdk.Core;
+using Native.XQ.SDK.Core;
 
 namespace Native.XQ.SDK
 {

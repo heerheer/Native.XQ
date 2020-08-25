@@ -105,7 +105,8 @@
     </PostBuildEvent>
   </PropertyGroup>
   <PropertyGroup>
-    <PreBuildEvent>if EXIST "$(TargetDir)\$(TargetName).XQ.dll" del "$(TargetDir)\$(TargetName).XQ.dll"</PreBuildEvent>
+    <PreBuildEvent>if EXIST "$(TargetDir)\$(TargetName).XQ.dll" del "$(TargetDir)\$(TargetName).XQ.dll"
+del "$(TargetDir)\*.*" /Q</PreBuildEvent>
   </PropertyGroup>
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
     <PropertyGroup>

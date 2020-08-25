@@ -5,7 +5,7 @@ using System.Linq;
 using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading.Tasks;
-using Native.XQ.Sdk.Core;
+using Native.XQ.SDK.Core;
 
 namespace Native.XQ.SDK.Core
 {

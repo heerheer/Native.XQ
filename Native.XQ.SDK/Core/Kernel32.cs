@@ -5,7 +5,7 @@ using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Native.XQ.Sdk.Core
+namespace Native.XQ.SDK.Core
 {
 	public class Kernel32
 	{
