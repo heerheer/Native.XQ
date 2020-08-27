@@ -23,6 +23,20 @@ namespace Native.XQ.SDK
             }
         }
 
+        #region 框架
+
+        /// <summary>
+        /// 取框架所有QQ号
+        /// </summary>
+        public IEnumerable<XQQQ> GetQQList()
+        {
+            var str = XQDLL.Api_GetQQList();
+
+            return str.Split(Environment.NewLine.ToCharArray()).ToList().FindAll(s => s != "").Select(s => new XQQQ(s, this));
+        }
+
+        #endregion
+
         #region 日志相关
 
         /// <summary>
@@ -197,15 +211,6 @@ namespace Native.XQ.SDK
             return $"[pic={imgpath}]";
         }
 
-        /// <summary>
-        /// 取框架所有QQ号
-        /// </summary>
-        public IEnumerable<XQQQ> GetQQList()
-        {
-            var str = XQDLL.Api_GetQQList();
-
-            return str.Split(Environment.NewLine.ToCharArray()).ToList().FindAll(s => s != "").Select(s => new XQQQ(s, this));
-        }
 
         /// <summary>
         /// 获取群名
@@ -216,6 +221,39 @@ namespace Native.XQ.SDK
         public static string GetGroupName(string robotQQ,string groupId)
         {
             return XQDLL.Api_GetGroupName(robotQQ, groupId);
+        }
+
+        /// <summary>
+        /// 获取群名
+        /// </summary>
+        /// <param name="robotQQ"></param>
+        /// <param name="qq"></param>
+        /// <returns></returns>
+        public static string GetQQNick(string robotQQ, string qq)
+        {
+            return XQDLL.Api_GetNick(robotQQ, qq);
+        }
+
+        /// <summary>
+        /// 取对象QQ等级 成功返回等级  失败返回-1
+        /// </summary>
+        /// <param name="robotQQ"></param>
+        /// <param name="qq"></param>
+        /// <returns></returns>
+        public static int GetQQLevel(string robotQQ,string qq)
+        {
+            return XQDLL.Api_GetObjLevel(robotQQ, qq);
+        }
+
+        /// <summary>
+        /// 取Q龄 成功返回Q龄 失败返回-1
+        /// </summary>
+        /// <param name="robotQQ"></param>
+        /// <param name="qq"></param>
+        /// <returns></returns>
+        public static int GetQQAge(string robotQQ, string qq)
+        {
+            return XQDLL.Api_GetQQAge(robotQQ, qq);
         }
 
 

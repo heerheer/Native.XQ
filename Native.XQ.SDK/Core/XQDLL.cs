@@ -82,6 +82,14 @@ namespace Native.XQ.SDK
         [DllImport(DllName,CharSet=CharSet.Ansi)]
         public static extern string Api_GetGroupName(string robotQQ, string groupId);
 
+        [DllImport(DllName, CharSet = CharSet.Ansi)]
+        public static extern string Api_GetNick(string robotQQ, string qq);
+
+        [DllImport(DllName)]
+        public static extern int Api_GetObjLevel(string robotQQ, string qq);
+
+        [DllImport(DllName)]
+        public static extern int Api_GetQQAge(string robotQQ, string qq);
         [DllImport(DllName)]
         public static extern string Api_GetQQList();
 
