@@ -69,5 +69,10 @@ namespace Native.XQ.SDK.Models
         {
             XQAPI.ShutUpMember(robotQQ, this.Id,"" ,0);
         }
+
+        public GroupInfo ToGroupInfo(string robotQQ)
+        {
+            return new GroupInfo(robotQQ,Id) ;
+        }
     }
 }

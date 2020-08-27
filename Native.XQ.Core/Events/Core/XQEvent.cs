@@ -131,7 +131,7 @@ namespace Native.XQ.Core.Events.Core
             }
             catch (Exception ex)
             {
-                xqapi.Log(ex.Message);
+                xqapi.Error(ex.Message);
                 return 1;
             }
         }
@@ -144,24 +144,32 @@ namespace Native.XQ.Core.Events.Core
         [DllExport]
         public static string XQ_Create(string frameworkVersion)
         {
-            if (!Directory.Exists(Directory.GetCurrentDirectory() + "\\Config"))
+            try
             {
-                Directory.CreateDirectory(Directory.GetCurrentDirectory() + "\\Config");
+                if (!Directory.Exists(Directory.GetCurrentDirectory() + "\\Config"))
+                {
+                    Directory.CreateDirectory(Directory.GetCurrentDirectory() + "\\Config");
+                }
+                XQMain.AppDirectory = Directory.GetCurrentDirectory() + "\\Config\\" + XQMain.AppInfo().name + "\\";
+                if (!Directory.Exists(XQMain.AppDirectory))
+                {
+                    Directory.CreateDirectory(XQMain.AppDirectory);
+                }
+                //初始化事件容器
+                EventContainer.Init();
+
+                //初始化基本XQAPI
+                xqapi = new XQAPI();
+                xqapi.AppInfo = XQMain.AppInfo();
+
+                //返回AppInfo Json
+                return AppInfoStr();
             }
-            XQMain.AppDirectory = Directory.GetCurrentDirectory() + "\\Config\\" + XQMain.AppInfo().name + "\\";
-            if (!Directory.Exists(XQMain.AppDirectory))
+            catch (Exception)
             {
-                Directory.CreateDirectory(XQMain.AppDirectory);
+                //错误
+                return AppInfoStr();
             }
-            //初始化事件容器
-            EventContainer.Init();
-
-            //初始化基本XQAPI
-            xqapi = new XQAPI();
-            xqapi.AppInfo = XQMain.AppInfo();
-
-            //返回AppInfo Json
-            return AppInfo();
         }
 
         /// <summary>
@@ -198,7 +206,7 @@ namespace Native.XQ.Core.Events.Core
         /// 得到AppInfo的json并返回
         /// </summary>
         /// <returns></returns>
-        public static string AppInfo()
+        public static string AppInfoStr()
         {
             return JsonConvert.SerializeObject(XQMain.AppInfo());
         }

@@ -84,7 +84,6 @@
   <ItemGroup>
     <Compile Include="Events\Core\EventContainer.cs" />
     <Compile Include="Events\Core\XQEvent.cs" />
-    <Compile Include="Events\Event_GroupMessage.cs" />
     <Compile Include="Events\Event_PrivateMessage.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="XQMain.cs" />

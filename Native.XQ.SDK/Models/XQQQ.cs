@@ -34,5 +34,14 @@ namespace Native.XQ.SDK.Models
             XQAPI.SendPrivateMessage(robotQQ,this.Id, msg);
         }
 
+        /// <summary>
+        /// 获取AT代码
+        /// </summary>
+        /// <returns></returns>
+        public string Code_At()
+        {
+            return $"[@{Id}]";
+        }
+
     }
 }

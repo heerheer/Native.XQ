@@ -70,6 +70,9 @@
     <Compile Include="Interfaces\IXQGroupMessage.cs" />
     <Compile Include="Interfaces\IXQUnBanSpeak.cs" />
     <Compile Include="Models\BaseModel.cs" />
+    <Compile Include="Models\FriendInfo.cs" />
+    <Compile Include="Models\GroupInfo.cs" />
+    <Compile Include="Models\MemberInfo.cs" />
     <Compile Include="Models\XQRobot.cs" />
     <Compile Include="Models\XQGroup.cs" />
     <Compile Include="Models\XQMessage.cs" />

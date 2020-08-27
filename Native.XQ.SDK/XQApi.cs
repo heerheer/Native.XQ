@@ -3,18 +3,17 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Text;
-using System.Threading;
-using System.Threading.Tasks;
 using Native.XQ.SDK.Core;
 using Native.XQ.SDK.Enums;
 using Native.XQ.SDK.Models;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 
 namespace Native.XQ.SDK
 {
     public class XQAPI
     {
         public XQAppInfo AppInfo { get; set; }
-
 
         public string AppDirectory
         {
@@ -26,11 +25,19 @@ namespace Native.XQ.SDK
 
         #region 日志相关
 
+        /// <summary>
+        /// 输出一条日志
+        /// </summary>
+        /// <param name="msg"></param>
         public void Log(string msg)
         {
             XQDLL.Api_OutPutLog(msg);
         }
 
+        /// <summary>
+        /// [Info]日志
+        /// </summary>
+        /// <param name="contents"></param>
         public void Info(params object[] contents)
         {
             StringBuilder sb = new StringBuilder();
@@ -46,13 +53,32 @@ namespace Native.XQ.SDK
                     sb.Append(item);
                 }
             }
-            XQDLL.Api_OutPutLog(sb.ToString());
-
+            Log(sb.ToString());
         }
 
-        #endregion
+        /// <summary>
+        /// [Error]日志
+        /// </summary>
+        /// <param name="contents"></param>
+        public void Error(params object[] contents)
+        {
+            StringBuilder sb = new StringBuilder();
+            sb.Append("[Error]");
+            foreach (var item in contents)
+            {
+                if (item == null)
+                {
+                    sb.Append("");
+                }
+                else
+                {
+                    sb.Append(item);
+                }
+            }
+            Log(sb.ToString());
+        }
 
-
+        #endregion 日志相关
 
         /// <summary>
         /// 发送群消息
@@ -72,7 +98,6 @@ namespace Native.XQ.SDK
             }
             XQDLL.Api_SendMsgEX(robotqq, 2, group, "", msg, 0, false);
         }
-
 
         /// <summary>
         /// 禁言群内成员
@@ -128,8 +153,9 @@ namespace Native.XQ.SDK
         /// <param name="msg"></param>
         public void HanldeGroupEvent(string robotQQ, int type, string qq, string group, string seq, ResponseType rtype, string msg = "")
         {
-            XQDLL.Api_HandleGroupEvent(robotQQ,type,qq,group,seq,(int)rtype,msg);
+            XQDLL.Api_HandleGroupEvent(robotQQ, type, qq, group, seq, (int)rtype, msg);
         }
+
         /// <summary>
         /// 处理好友申请
         /// </summary>
@@ -147,14 +173,110 @@ namespace Native.XQ.SDK
         /// </summary>
         /// <param name="robotQQ"></param>
         /// <returns></returns>
-        public IEnumerable<XQGroup> GetGroupList(string robotQQ)
+        public IEnumerable<XQGroup> GetGroupList_B(string robotQQ)
         {
             var str = XQDLL.Api_GetGroupList_B(robotQQ);
             if (str == "" || str == null)
             {
                 return null;
             }
-            return str.Split(Environment.NewLine.ToCharArray()).Select(s=>new XQGroup(s,this));
+            return str.Split(Environment.NewLine.ToCharArray()).ToList().FindAll(s => s != "").Select(s => new XQGroup(s, this));
+        }
+
+        /// <summary>
+        /// 依据本地路径生成图片码
+        /// </summary>
+        /// <param name="path"></param>
+        /// <param name="relativeToAppDir">如果为真，那么就会变成 dir + path 即填写的路径只是在Appdir下面的路径</param>
+        /// <returns></returns>
+        public string Code_Image(string path, bool relativeToAppDir)
+        {
+            var imgpath = path;
+            if (relativeToAppDir)
+                imgpath = Path.Combine(this.AppDirectory, path);
+            return $"[pic={imgpath}]";
+        }
+
+        /// <summary>
+        /// 取框架所有QQ号
+        /// </summary>
+        public IEnumerable<XQQQ> GetQQList()
+        {
+            var str = XQDLL.Api_GetQQList();
+
+            return str.Split(Environment.NewLine.ToCharArray()).ToList().FindAll(s => s != "").Select(s => new XQQQ(s, this));
+        }
+
+        /// <summary>
+        /// 获取群名
+        /// </summary>
+        /// <param name="robotQQ"></param>
+        /// <param name="groupId"></param>
+        /// <returns></returns>
+        public static string GetGroupName(string robotQQ,string groupId)
+        {
+            return XQDLL.Api_GetGroupName(robotQQ, groupId);
+        }
+
+
+        /// <summary>
+        /// 获取好友列表
+        /// </summary>
+        /// <param name="robotQQ"></param>
+        /// <returns></returns>
+        public static IEnumerator<FriendInfo> GetFriendList(string robotQQ)
+        {
+            var str =  XQDLL.Api_GetFriendList(robotQQ);
+
+            JObject json = JsonConvert.DeserializeObject<JObject>(str);
+            if (json["errcode"].ToString() == "0" && json["ec"].ToString() == "0")
+            {
+                var resultj = json["result"];
+                resultj = resultj["0"];
+                foreach (var item in resultj["mems"])
+                {
+                    yield return new FriendInfo(item["name"].ToString(), long.Parse(item["uin"].ToString()));
+                }
+            }
+        }
+
+        /// <summary>
+        /// 获取群成员列表(GroupInfo)
+        /// </summary>
+        /// <param name="robotQQ"></param>
+        /// <returns></returns>
+        public static IEnumerator<GroupInfo> GetGroupList(string robotQQ)
+        {
+            var str = XQDLL.Api_GetGroupList(robotQQ);
+            JObject json = JsonConvert.DeserializeObject<JObject>(str);
+            if (json["errcode"].ToString() == "0" && json["ec"].ToString() == "0")
+            {
+                var resultj = json["join"];
+                foreach (var item in resultj)
+                {
+                    yield return new GroupInfo(item["gc"].ToString()) { Name=item["gn"].ToString() ,Owner= item["owner"].ToString() };
+                }
+            }
+
+        }
+
+        /// <summary>
+        /// 获取指定群的群成员列表
+        /// </summary>
+        /// <param name="robotQQ"></param>
+        /// <param name="group"></param>
+        /// <returns></returns>
+        public static IEnumerator<MemberInfo> GetGroupMemberInfo(string robotQQ,string group)
+        {
+            var str = XQDLL.Api_GetGroupMemberList_C(robotQQ,group);
+            JObject json = JsonConvert.DeserializeObject<JObject>(str);
+            if (json.ContainsKey("list"))
+            {
+                foreach (var item in json["list"])
+                {
+                    yield return new MemberInfo(group, robotQQ) { Id=item["QQ"].ToString(),Level=int.Parse( item["lv"].ToString()) };
+                }
+            }
         }
     }
 }

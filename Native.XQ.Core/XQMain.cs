@@ -45,7 +45,6 @@ namespace Native.XQ.Core
         public static void Register(IUnityContainer unityContainer)
         {
             //注入方式为 unityContainer.RegisterType<接口, 继承接口的类>();
-            unityContainer.RegisterType<IXQGroupMessage, Event_GroupMessage>();
             unityContainer.RegisterType<IXQPrivateMessage, Event_PrivateMessage>();
         }
     }

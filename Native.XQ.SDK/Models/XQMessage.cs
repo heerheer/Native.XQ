@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
+using System.Net;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
@@ -56,6 +58,26 @@ namespace Native.XQ.SDK.Models
         public void Withdraw(string robotQQ, XQGroup group)
         {
             XQDLL.Api_WithdrawMsg(robotQQ, group.Id, MsgIndex, MsdId);
+        }
+
+        /// <summary>
+        /// 将消息内GUID表示的图片下载到指定路径下 并返回保存的路径
+        /// </summary>
+        /// <param name="robotQQ">机器人QQ</param>
+        /// <param name="dir"></param>
+        /// <param name="type">群2 好友1</param>
+        /// <returns></returns>
+        public IEnumerator<string> SaveImages(string robotQQ,string dir,int type,XQGroup group)
+        {
+            var matches = Regex.Matches(Text, @"\[pic=(.*?)\]");
+            foreach (Match item in matches)
+            {
+                var url = XQDLL.Api_GetPicLink(robotQQ,type,group.Id,item.Value) ;
+                new WebClient().DownloadFile(url, Path.Combine(dir, $"{item.Groups[0].Value}"));
+                yield return Path.Combine(dir, $"{item.Groups[0].Value}");
+
+            }
+
         }
     }
 }
